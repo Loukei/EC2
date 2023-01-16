@@ -40,3 +40,5 @@ src/.vs
 
 src/EC2/obj/Debug/net6.0/EC2.assets.cache
 src/EC2/obj/Debug/net6.0/EC2.GeneratedMSBuildEditorConfig.editorconfig
+
+.fake
