@@ -46,5 +46,7 @@
   - 新增一個`ProductPagingResponseModel`模型用來儲存Pagination的結果
   - `ProductRepository.GetAll`可能需要撈兩次
   - [A Demo On .Net5 Web API Pagination Using Dapper ORM](https://www.learmoreseekmore.com/2021/08/demo-on-dotnet5-web-api-pagination-using-dapper-orm.html)
+- 修改GetAll輸入參數，使用`ProductServiceRequest`包裹參數
+- 升級成.net core 7?
 
 ---

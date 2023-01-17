@@ -23,4 +23,4 @@
 
 ![Img](img/master%20-%20Northwind%20-%20dbo.png)
 
-^ Power by BDreaver IDE
+^ Power by DBreaver IDE
