@@ -40,11 +40,13 @@ public int ProductID { get; set; } = 1;
 
 ## Paging 作法
 
-
-
 - [ASP.net MVC + API Dapper 分頁寫法 | IT界的影武者 - 點部落](https://dotblogs.com.tw/bda605/2022/03/12/153046)
 - [A Demo On .Net5 Web API Pagination Using Dapper ORM](https://www.learmoreseekmore.com/2021/08/demo-on-dotnet5-web-api-pagination-using-dapper-orm.html)
 - [筆記－T-SQL 分頁查詢並傳回總筆數-黑暗執行緒](https://blog.darkthread.net/blog/tsql-paging-and-get-totalcount/)
+
+## learning resource
+
+- [ASP.NET Core Overview - .NET/C#](https://baldur.gitbook.io/net-c/)
 
 ---
 
@@ -53,6 +55,11 @@ public int ProductID { get; set; } = 1;
 - [Using Dapper with ASP.NET Core Web API - Code Maze](https://code-maze.com/using-dapper-with-asp-net-core-web-api/)
 - [OUTPUT Clause (Transact-SQL) - SQL Server | Microsoft Learn](https://learn.microsoft.com/en-us/sql/t-sql/queries/output-clause-transact-sql?view=sql-server-ver16)
 
+
 ### Repository pattern
 
 - [How to use Dapper with ASP.NET Core and Repository Pattern](https://blog.christian-schou.dk/how-to-use-dapper-with-asp-net-core/)
+
+## API design guide & examples
+
+- [REST API Best Practices – REST Endpoint Design Examples](https://www.freecodecamp.org/news/rest-api-best-practices-rest-endpoint-design-examples/)

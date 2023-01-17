@@ -49,6 +49,8 @@ namespace EC2.Models
         [DefaultValue(0)]
         public int ReorderLevel { get; set; } = 0;
 
+        [Range(0, 1)]
+        [DefaultValue(0)]
         public byte Discontinued { get; set; } = 0;
 
         // When object deleted, simply set status to false, default is true

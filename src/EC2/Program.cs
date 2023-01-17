@@ -36,7 +36,6 @@ try
     builder.Services.AddSingleton<ICategoryRepository, CategoryRepository>();
     builder.Services.AddSingleton<IProductService, ProductService>();
 
-
     var app = builder.Build();
 
     // Configure the HTTP request pipeline.

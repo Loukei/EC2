@@ -22,6 +22,7 @@ namespace EC2.Controllers
         public ProductController(IProductService productService)
         {
             _productService = productService;
+
         }
 
         /// <summary>
@@ -70,26 +71,27 @@ namespace EC2.Controllers
             return response;
         }
 
-        //[HttpGet]
-        //public ServiceResponse GetPaging(string? name, int? supplierID, int? categoryID, int pageIndex = 1, int pageSize = 10)
-        //{
-        //    /// TODO: ERROR WHEN ADD FUNCTION
-        //    var response = new ServiceResponse
-        //    {
-        //        Message = $"Paging products  has failed.",
-        //        StatusCode = "Fail_001",
-        //    };
+        [HttpGet]
+        [Route("/GetPaging")]
+        public ServiceResponse GetPaging(string? name, int? supplierID, int? categoryID, int pageIndex = 1, int pageSize = 10)
+        {
+            /// TODO: ERROR WHEN ADD FUNCTION
+            var response = new ServiceResponse
+            {
+                Message = $"Paging products  has failed.",
+                StatusCode = "Fail_001",
+            };
 
-        //    var pagingResults = _productService.GetPaging(name, supplierID, categoryID, pageIndex, pageSize);
-        //    if (pagingResults != null)
-        //    {
-        //        response.IsSucessful = true;
-        //        response.Result = pagingResults;
-        //        response.Message = "Paging Successfully";
-        //        response.StatusCode = "Success";
-        //    }
-        //    return response;
-        //}
+            var pagingResults = _productService.GetPaging(name, supplierID, categoryID, pageIndex, pageSize);
+            if (pagingResults != null)
+            {
+                response.IsSucessful = true;
+                response.Result = pagingResults;
+                response.Message = "Paging Successfully";
+                response.StatusCode = "Success";
+            }
+            return response;
+        }
 
         /// <summary>
         /// 
