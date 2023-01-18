@@ -26,25 +26,26 @@ namespace EC2.Controllers
         }
 
         /// <summary>
-        /// Create single product
+        /// 
         /// </summary>
-        /// <param name="product"></param>
+        /// <param name="productId"></param>
         /// <returns></returns>
-        [HttpPost]
-        public ServiceResponse Create(ProductViewModel product)
+        [HttpGet]
+        [Route("/{productId:int:min(1)}")]
+        public ServiceResponse Get(int productId)
         {
             var response = new ServiceResponse
             {
-                Message = "Create product has failed.",
+                Message = $"Get product {productId} has failed.",
                 StatusCode = "Fail_001",
             };
 
-            var prod = _productService.Create(product);
+            Product prod = _productService.Get(productId);
             if (prod != null)
             {
                 response.IsSucessful = true;
                 response.Result = prod;
-                response.Message = "Create Successfully";
+                response.Message = "Get Successfully";
                 response.StatusCode = "Success";
             }
             return response;
@@ -71,54 +72,31 @@ namespace EC2.Controllers
             return response;
         }
 
-        [HttpGet]
-        [Route("/GetPaging")]
-        public ServiceResponse GetPaging(string? name, int? supplierID, int? categoryID, int pageIndex = 1, int pageSize = 10)
-        {
-            /// TODO: ERROR WHEN ADD FUNCTION
-            var response = new ServiceResponse
-            {
-                Message = $"Paging products  has failed.",
-                StatusCode = "Fail_001",
-            };
-
-            var pagingResults = _productService.GetPaging(name, supplierID, categoryID, pageIndex, pageSize);
-            if (pagingResults != null)
-            {
-                response.IsSucessful = true;
-                response.Result = pagingResults;
-                response.Message = "Paging Successfully";
-                response.StatusCode = "Success";
-            }
-            return response;
-        }
-
         /// <summary>
-        /// 
+        /// Create single product
         /// </summary>
-        /// <param name="productId"></param>
+        /// <param name="product"></param>
         /// <returns></returns>
-        [HttpGet]
-        [Route("/{productId:int:min(1)}")]
-        public ServiceResponse Get(int productId)
-        {            
+        [HttpPost]
+        public ServiceResponse Create(ProductViewModel product)
+        {
             var response = new ServiceResponse
             {
-                Message = $"Get product {productId} has failed.",
+                Message = "Create product has failed.",
                 StatusCode = "Fail_001",
             };
 
-            Product prod = _productService.Get(productId);
+            var prod = _productService.Create(product);
             if (prod != null)
             {
                 response.IsSucessful = true;
                 response.Result = prod;
-                response.Message = "Get Successfully";
+                response.Message = "Create Successfully";
                 response.StatusCode = "Success";
             }
             return response;
         }
-
+        
         [HttpPut]
         [Route("update/{productId:int:min(1)}")]
         public ServiceResponse Update(int productId,ProductViewModel product)

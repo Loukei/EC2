@@ -12,12 +12,12 @@ namespace EC2.Models
         [DefaultValue(null)]
         public string? name { get; set; } = null;
 
-        // TODO: use guid rather than direct mapping to pk
+        /// TODO: use guid rather than direct mapping to pk
         [Range(1, int.MaxValue)]
         [DefaultValue(null)]
         public int? supplierID { get; set; } = null;
 
-        // TODO: use guid rather than direct mapping to pk
+        /// TODO: use guid rather than direct mapping to pk
         [Range(1, int.MaxValue)]
         [DefaultValue(null)]
         public int? categoryID { get; set; } = null;

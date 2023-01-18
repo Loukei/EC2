@@ -8,8 +8,7 @@ namespace EC2.Repository
     public interface IProductRepository {      
         Product Create(ProductViewModel product);
         Product GetByID(int productId);
-        IEnumerable<Product> GetAll(string? name, int? supplierID, int? categoryID, int pageIndex, int pageSize);
-        ProductPagingResponseModel GetPaging(string? name, int? supplierID, int? categoryID, int pageIndex, int pageSize);
+        ProductPagingResponseModel GetAll(string? name, int? supplierID, int? categoryID, int pageIndex, int pageSize);
         Product Update(int productId, ProductViewModel product);        
         bool Delete(int productId);
     }
@@ -98,50 +97,8 @@ namespace EC2.Repository
             }
         }
 
-        /// <summary>
-        /// Query Products by parameters
-        /// </summary>
-        /// <param name="CategoryID"></param>
-        /// <param name="name"></param>
-        /// <param name="pageIndex"></param>
-        /// <param name="pageSize"></param>
-        /// <returns>
-        /// </returns>
-        public IEnumerable<Product> GetAll(string? name, int? supplierID, int? categoryID, int pageIndex, int pageSize)
+        public ProductPagingResponseModel GetAll(string? name, int? supplierID, int? categoryID, int pageIndex, int pageSize)
         {
-            using (var conn = _dapperContext.CreateConnection())
-            {
-                string querystr = @"
-                    SELECT * FROM Products 
-                    WHERE 
-                        ([SupplierID] = @SupplierID OR @SupplierID IS NULL)
-                        AND
-                        ([CategoryID] = @CategoryID OR @CategoryID IS NULL)
-                        AND 
-                        ([ProductName] LIKE @name OR @name IS NULL)
-                        AND
-                        ([Status] = 1)
-                    ORDER BY [PRODUCTID] DESC
-                    OFFSET (@pageIndex-1)*@pageSize ROWS FETCH NEXT @pageSize ROWS ONLY;
-                ";
-                //if (categoryID.HasValue && categoryID.Value > 0)
-                //    updateSQL += "where categoryID = @categoryID";
-                var result = conn.Query<Product>(querystr,
-                    new
-                    {
-                        CategoryID = categoryID,
-                        SupplierID = supplierID,
-                        name = $"%{name}%",
-                        pageSize = pageSize,
-                        pageIndex = pageIndex
-                    });
-                return result;
-            }
-        }
-
-        public ProductPagingResponseModel GetPaging(string? name, int? supplierID, int? categoryID, int pageIndex, int pageSize)
-        {
-            /// TODO: 分頁查詢，並且返回包裝的ProductPagingResponseModel
             using (var conn = _dapperContext.CreateConnection())
             {
                 /// 查詢2次
