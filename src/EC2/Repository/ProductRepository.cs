@@ -8,7 +8,8 @@ namespace EC2.Repository
     public interface IProductRepository {      
         Product Create(ProductViewModel product);
         Product GetByID(int productId);
-        ProductPagingResponseModel GetAll(string? name, int? supplierID, int? categoryID, int pageIndex, int pageSize);
+        //ProductPagingResponseModel GetAll(string? name, int? supplierID, int? categoryID, int pageIndex, int pageSize);
+        ProductPagingResponseModel GetAll(ProductPagingViewModel request);
         Product Update(int productId, ProductViewModel product);        
         bool Delete(int productId);
     }
@@ -97,8 +98,9 @@ namespace EC2.Repository
             }
         }
 
-        public ProductPagingResponseModel GetAll(string? name, int? supplierID, int? categoryID, int pageIndex, int pageSize)
+        public ProductPagingResponseModel GetAll(ProductPagingViewModel request)
         {
+ 
             using (var conn = _dapperContext.CreateConnection())
             {
                 /// 查詢2次
@@ -124,22 +126,22 @@ namespace EC2.Repository
                 int totalRecords = conn.QuerySingle<int>(countTotalRecordsSQL, 
                     new 
                     {
-                        CategoryID = categoryID,
-                        SupplierID = supplierID,
-                        name = $"%{name}%"
+                        CategoryID = request.categoryID,
+                        SupplierID = request.supplierID,
+                        name = $"%{request.name}%"
                     });
                 
-                int totalPages = Convert.ToInt32(Math.Ceiling(((double)totalRecords / (double)pageSize)));
+                int totalPages = Convert.ToInt32(Math.Ceiling(((double)totalRecords / (double)request.pageSize)));
                 IEnumerable<Product> data = conn.Query<Product>(getTotalRecordsSQL,
                     new
                     {
-                        CategoryID = categoryID,
-                        SupplierID = supplierID,
-                        name = $"%{name}%",
-                        pageSize = pageSize,
-                        pageIndex = pageIndex                 
+                        CategoryID = request.categoryID,
+                        SupplierID = request.supplierID,
+                        name = $"%{request.name}%",
+                        pageSize = request.pageSize,
+                        pageIndex = request.pageIndex                 
                     });
-                return new ProductPagingResponseModel(data,totalRecords, pageIndex, pageSize,totalPages);
+                return new ProductPagingResponseModel(data,totalRecords, request.pageIndex, request.pageSize,totalPages);
             }
         }
 

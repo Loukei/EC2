@@ -6,7 +6,7 @@ namespace EC2.Models
     /// <summary>
     /// A model for ProductController GetAll parameter
     /// </summary>
-    public class ProductsRequestModel
+    public class ProductPagingViewModel
     {
         [StringLength(40)]
         [DefaultValue(null)]

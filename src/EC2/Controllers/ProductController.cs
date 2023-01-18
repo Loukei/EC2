@@ -53,7 +53,7 @@ namespace EC2.Controllers
 
         //product? pageindex = 1 & pagesize = 10 & name = abc & categoryid = 123
         [HttpGet]
-        public ServiceResponse GetAll(string? name, int? supplierID, int? categoryID, int pageIndex = 1, int pageSize = 10)
+        public ServiceResponse GetAll([FromQuery] ProductPagingViewModel parameters)
         {
             var response = new ServiceResponse
             {
@@ -61,7 +61,7 @@ namespace EC2.Controllers
                 StatusCode = "Fail_001",
             };
 
-            var prods = _productService.GetAll(name, supplierID, categoryID, pageIndex, pageSize);
+            var prods = _productService.GetAll(parameters);
             if (prods != null)
             {
                 response.IsSucessful = true;
