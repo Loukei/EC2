@@ -25,28 +25,14 @@
 
 ---
 
-## 步驟
-
-- 設定題目
-- 建立並執行一個最簡單的Hello World API
-- 建立資料庫內容
-  - 設定資料庫欄位
-  - 連線
-- 建立API schema
-  - 查詢
-  - 新增
-  - 修改
-  - 刪除
----
-
 ## TODO
 
-- GetAll 添加suplilierName
-- GetAll 添加Pagenation
-  - 新增一個`ProductPagingResponseModel`模型用來儲存Pagination的結果
-  - `ProductRepository.GetAll`可能需要撈兩次
-  - [A Demo On .Net5 Web API Pagination Using Dapper ORM](https://www.learmoreseekmore.com/2021/08/demo-on-dotnet5-web-api-pagination-using-dapper-orm.html)
-- 修改GetAll輸入參數，使用`ProductServiceRequest`包裹參數
-- 升級成.net core 7?
+- 改用EF core
+  - 新增EF context
+  - 測試資料庫連線
+  - 修改Repository
+    - Product
+    - Category
+    - Suppilier
 
 ---
