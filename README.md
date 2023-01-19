@@ -25,26 +25,18 @@
 
 ---
 
-## 步驟
-
-- 設定題目
-- 建立並執行一個最簡單的Hello World API
-- 建立資料庫內容
-  - 設定資料庫欄位
-  - 連線
-- 建立API schema
-  - 查詢
-  - 新增
-  - 修改
-  - 刪除
----
-
 ## TODO
 
 - API參數不能直接帶DB的Primary key
 - GetAll 添加suplilierName參數
 - 升級成.net core 7?
-- 改成Async方法
+- Async非同步
+- 國際化
+- 使用者認證與限制
+  - JWT
+  - 防止server崩潰，需要對不同的User做出流量管制
+- 添加測試
+- 正確的處理HTTP request，並回應適當的http status code
 
 
 ---
