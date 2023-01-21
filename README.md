@@ -34,5 +34,7 @@
     - Product
     - Category
     - Suppilier
+  - 測試功能
+  - 刪除Dapper context相關程式碼
 
 ---
