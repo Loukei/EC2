@@ -15,7 +15,7 @@ namespace EC2.Controllers
         }
 
         [HttpGet]
-        [Route("/{id:int}")]
+        [Route("/Product/{id:int}")]
         public ActionResult Get(int id)
         {
             var product = _northwindContext.Products.Single(p => p.ProductId == id);

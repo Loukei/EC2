@@ -1,4 +1,5 @@
 ﻿using EC2.Models;
+using EC2.Models.EFcore;
 
 namespace EC2.Service
 {

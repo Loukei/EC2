@@ -1,5 +1,6 @@
 ﻿using EC2.Context;
 using EC2.Models;
+using EC2.Models.EFcore;
 using Dapper;
 
 namespace EC2.Repository
@@ -13,10 +14,12 @@ namespace EC2.Repository
     public class CategoryRepository: ICategoryRepository
     {
         private readonly DapperContext _dapperContext;
+        //private readonly NorthwindContext _northwindContext;
 
         public CategoryRepository(DapperContext dapperContext)
         {
             _dapperContext = dapperContext;
+            //_northwindContext = northwindContext;
         }
 
         /// <summary>

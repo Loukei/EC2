@@ -1,7 +1,7 @@
 ﻿using EC2.Context;
 using EC2.Models;
+using EC2.Models.EFcore;
 using Dapper;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace EC2.Repository
 {
@@ -17,9 +17,11 @@ namespace EC2.Repository
     public class ProductRepository: IProductRepository
     {
         private readonly DapperContext _dapperContext;
+        //private readonly NorthwindContext _northwindContext;
         public ProductRepository(DapperContext dapperContext)
         {
             _dapperContext = dapperContext;
+            //_northwindContext = northwindContext;
         }
 
         /// <summary>
@@ -92,7 +94,7 @@ namespace EC2.Repository
         {
             using (var conn = _dapperContext.CreateConnection())
             {
-                string sql = @"SELECT * FROM Products WHERE [ProductID] = @productId AND [Status] = 1";             
+                string sql = @"SELECT * FROM Products WHERE [ProductID] = @productId AND [Status] = 1";
                 Product product = conn.QuerySingleOrDefault<Product>(sql, new { productId = productId });
                 return product;
             }

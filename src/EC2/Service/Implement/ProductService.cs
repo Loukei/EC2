@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using EC2.Models;
+using EC2.Models.EFcore;
 using EC2.Repository;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace EC2.Service.Implement
 {

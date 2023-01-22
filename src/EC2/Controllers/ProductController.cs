@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 //using System.Net;
 using EC2.Models;
+using EC2.Models.EFcore;
 using EC2.Service;
 
 namespace EC2.Controllers
