@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using EC2.Models.EFcore;
+using EC2.Models.EFcore.Context;
 
 namespace EC2.Controllers
 {

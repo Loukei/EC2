@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-namespace EC2.Models.EFcore;
+namespace EC2.Models.EFcore.Context;
 
 public partial class NorthwindContext : DbContext
 {

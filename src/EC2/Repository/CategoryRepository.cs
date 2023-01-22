@@ -1,7 +1,8 @@
-﻿using EC2.Context;
-using EC2.Models;
+﻿//using EC2.Context;
+//using EC2.Models;
+using EC2.Models.EFcore.Context;
 using EC2.Models.EFcore;
-using Dapper;
+//using Dapper;
 
 namespace EC2.Repository
 {
@@ -13,13 +14,13 @@ namespace EC2.Repository
 
     public class CategoryRepository: ICategoryRepository
     {
-        private readonly DapperContext _dapperContext;
-        //private readonly NorthwindContext _northwindContext;
+        //private readonly DapperContext _dapperContext;
+        private readonly NorthwindContext _northwindContext;
 
-        public CategoryRepository(DapperContext dapperContext)
+        public CategoryRepository(NorthwindContext northwindContext)
         {
-            _dapperContext = dapperContext;
-            //_northwindContext = northwindContext;
+            //_dapperContext = dapperContext;
+            _northwindContext = northwindContext;
         }
 
         /// <summary>
@@ -29,14 +30,22 @@ namespace EC2.Repository
         /// <returns></returns>
         public Category GetCategoryByID(int categoryId)
         {
-            using (var conn = _dapperContext.CreateConnection())
+            //using (var conn = _dapperContext.CreateConnection())
+            //{
+            //    string sql = @"
+            //        SELECT [CategoryID] ,[CategoryName],[Description] 
+            //        FROM Categories 
+            //        WHERE [CategoryID] = @categoryId";
+            //    var result = conn.QuerySingleOrDefault<Category>(sql, new { categoryId = categoryId });
+            //    return result;
+            //}
+            try
             {
-                string sql = @"
-                    SELECT [CategoryID] ,[CategoryName],[Description] 
-                    FROM Categories 
-                    WHERE [CategoryID] = @categoryId";
-                var result = conn.QuerySingleOrDefault<Category>(sql, new { categoryId = categoryId });
-                return result;
+                return _northwindContext.Categories.Single(c => c.CategoryId == categoryId);
+            }
+            catch(Exception ex)
+            {
+                return null;
             }
         }
     }

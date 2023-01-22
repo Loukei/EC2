@@ -1,15 +1,13 @@
 using EC2.Context;
-using EC2.Models.EFcore;
+using EC2.Models.EFcore.Context;
 using EC2.Repository;
 using EC2.Service;
 using EC2.Service.Implement;
 
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 
 /// add Serilog addon
 using Serilog;
-using Serilog.Events;
 
 var builder = WebApplication.CreateBuilder(args);
 
