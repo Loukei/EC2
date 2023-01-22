@@ -5,6 +5,7 @@ using EC2.Service;
 using EC2.Service.Implement;
 
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 /// add Serilog addon
 using Serilog;
@@ -34,15 +35,16 @@ try
     // EFCore
     var connStr = builder.Configuration.GetConnectionString("Northwind");
     builder.Services.AddDbContext<NorthwindContext>(opt => opt.UseSqlServer(connStr));
+    //builder.Services.AddSingleton<NorthwindContext>(s => new NorthwindContext(connStr));
 
     // Dapper
     builder.Services.AddSingleton<DapperContext>();
 
-    // Register ProductRepository to services
-    builder.Services.AddSingleton<IProductRepository, ProductRepository>();
-    builder.Services.AddSingleton<ISuppilierRepository, SuppilierRepository>();
-    builder.Services.AddSingleton<ICategoryRepository, CategoryRepository>();
-    builder.Services.AddSingleton<IProductService, ProductService>();
+    // Register Repositorys to services
+    builder.Services.AddTransient<IProductRepository, ProductRepository>();
+    builder.Services.AddTransient<ISuppilierRepository, SuppilierRepository>();
+    builder.Services.AddTransient<ICategoryRepository, CategoryRepository>();
+    builder.Services.AddTransient<IProductService, ProductService>();
 
 
     var app = builder.Build();

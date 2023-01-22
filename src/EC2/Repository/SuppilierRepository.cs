@@ -11,32 +11,34 @@ namespace EC2.Repository
 
     public class SuppilierRepository: ISuppilierRepository
     {
-        private readonly DapperContext _dapperContext;
-        //private readonly NorthwindContext _northwindContext;
+        //private readonly DapperContext _dapperContext;
+        private readonly NorthwindContext _northwindContext;
 
-        public SuppilierRepository(DapperContext dapperContext)
+        public SuppilierRepository(//DapperContext dapperContext, 
+            NorthwindContext northwindContext)
         {
-            _dapperContext = dapperContext;
+            //_dapperContext = dapperContext;
+            _northwindContext = northwindContext;
             //_northwindContext = northwindContext;
         }
 
         public Supplier GetSuppilierByID(int supplierId)
         {
-            using (var conn = _dapperContext.CreateConnection())
+            //using (var conn = _dapperContext.CreateConnection())
+            //{
+            //    string sql = @"SELECT * FROM Suppliers WHERE [SupplierID] = @supplierId";
+            //    var result = conn.QuerySingleOrDefault<Supplier>(sql, new { supplierId = supplierId });
+            //    return result;
+            //}
+            try
             {
-                string sql = @"SELECT * FROM Suppliers WHERE [SupplierID] = @supplierId";
-                var result = conn.QuerySingleOrDefault<Supplier>(sql, new { supplierId = supplierId });
-                return result;
+                var supplier = _northwindContext.Suppliers.Single(s => s.SupplierId == supplierId);
+                return supplier;
             }
-            //try
-            //{
-            //    var supplier = _northwindContext.Suppliers.Single(s => s.SupplierId == supplierId);
-            //    return supplier;
-            //}
-            //catch(Exception ex)
-            //{
-            //    return null;
-            //}
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
     }
 }
