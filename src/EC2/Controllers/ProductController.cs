@@ -1,11 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 //using System.Net;
-using System.Xml.Linq;
 using EC2.Models;
-using EC2.Repository;
 using EC2.Service;
-using EC2.Service.Implement;
 
 namespace EC2.Controllers
 {

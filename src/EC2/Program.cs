@@ -1,7 +1,11 @@
 using EC2.Context;
+using EC2.Models.EFcore;
 using EC2.Repository;
 using EC2.Service;
 using EC2.Service.Implement;
+
+using Microsoft.EntityFrameworkCore;
+
 /// add Serilog addon
 using Serilog;
 using Serilog.Events;
@@ -26,6 +30,10 @@ try
     // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
+
+    // EFCore
+    var connStr = builder.Configuration.GetConnectionString("Northwind");
+    builder.Services.AddDbContext<NorthwindContext>(opt => opt.UseSqlServer(connStr));
 
     // Dapper
     builder.Services.AddSingleton<DapperContext>();
