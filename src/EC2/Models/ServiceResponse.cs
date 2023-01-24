@@ -3,7 +3,7 @@
     /// <summary>
     /// 用來預備讓Service回傳的資料型態
     /// </summary>
-    public class ServiceResponse
+    public class ProductServiceResponse
     {
         public bool IsSucessful { get; set; }
         public dynamic Result { get; set; }

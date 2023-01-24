@@ -12,9 +12,9 @@
 //    public class BaseController : ControllerBase
 //    {
 
-//        protected ServiceResponse<T> Run<T>(Func<T> resolve) where T : class
+//        protected ProductServiceResponse<T> Run<T>(Func<T> resolve) where T : class
 //        {
-//            ServiceResponse<T> response = new ServiceResponse<T>();
+//            ProductServiceResponse<T> response = new ProductServiceResponse<T>();
 //            try
 //            {
 //                response.Result = resolve();

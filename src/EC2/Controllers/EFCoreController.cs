@@ -1,8 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using EC2.Models.EFcore.Context;
+using EC2.Models.EFCore.Context;
+using EC2.Models.EFCore;
 
 namespace EC2.Controllers
 {
+    /// <summary>
+    /// A test controller for using EFCore
+    /// TODO: delete this controller after successfully change to EFcore
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class EFCoreController : Controller
@@ -16,15 +21,11 @@ namespace EC2.Controllers
 
         [HttpGet]
         [Route("/Product/{id:int}")]
-        public ActionResult Get(int id)
+        public Product Get(int id)
         {
             var product = _northwindContext.Products.Single(p => p.ProductId == id);
 
-            if(product == null)
-            {
-                return NotFound();
-            }
-            return Ok(product);
+            return product;
         }
     }
 }

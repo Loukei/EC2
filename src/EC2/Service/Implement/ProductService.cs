@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using EC2.Models;
-using EC2.Models.EFcore;
+using EC2.Models.EFCore;
 using EC2.Repository;
 
 namespace EC2.Service.Implement

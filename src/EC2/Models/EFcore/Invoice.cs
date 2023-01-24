@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace EC2.Models.EFcore;
+namespace EC2.Models.EFCore;
 
 public partial class Invoice
 {

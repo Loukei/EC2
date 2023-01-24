@@ -58,7 +58,7 @@ namespace EC2.Models
         [Range(1, int.MaxValue)]
         [DefaultValue(1)]
         public int UpdatedBy { get; set; } = 1;
-        
+
         // default to admin
         //public DateTime UpdatedDate { get; set; }
     }

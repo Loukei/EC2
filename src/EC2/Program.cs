@@ -1,5 +1,6 @@
+using System.Text.Json.Serialization;
 using EC2.Context;
-using EC2.Models.EFcore.Context;
+using EC2.Models.EFCore.Context;
 using EC2.Repository;
 using EC2.Service;
 using EC2.Service.Implement;
@@ -25,7 +26,12 @@ try
     /// Put original program.cs code here
 
     // Add services to the container.
-    builder.Services.AddControllers();
+    builder.Services
+        .AddControllers()
+        .AddJsonOptions(options =>
+        {
+            options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+        });
     // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();

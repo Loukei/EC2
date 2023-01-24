@@ -1,12 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 //using System.Net;
 using EC2.Models;
-using EC2.Models.EFcore;
 using EC2.Service;
+using EC2.Models.EFCore;
 
 namespace EC2.Controllers
 {
-
     /// <summary>
     /// A service to maintain Product
     /// </summary>
@@ -27,9 +26,9 @@ namespace EC2.Controllers
         /// <param name="product"></param>
         /// <returns></returns>
         [HttpPost]
-        public ServiceResponse Create(ProductViewModel product)
+        public ProductServiceResponse Create(ProductViewModel product)
         {
-            var response = new ServiceResponse
+            var response = new ProductServiceResponse
             {
                 Message = "Create product has failed.",
                 StatusCode = "Fail_001",
@@ -48,9 +47,9 @@ namespace EC2.Controllers
 
         //product? pageindex = 1 & pagesize = 10 & name = abc & categoryid = 123
         [HttpGet]
-        public ServiceResponse GetAll(string? name, int? supplierID, int? categoryID, int pageIndex = 1, int pageSize = 10)
+        public ProductServiceResponse GetAll(string? name, int? supplierID, int? categoryID, int pageIndex = 1, int pageSize = 10)
         {
-            var response = new ServiceResponse
+            var response = new ProductServiceResponse
             {
                 Message = $"GetAll products  has failed.",
                 StatusCode = "Fail_001",
@@ -67,27 +66,6 @@ namespace EC2.Controllers
             return response;
         }
 
-        //[HttpGet]
-        //public ServiceResponse GetPaging(string? name, int? supplierID, int? categoryID, int pageIndex = 1, int pageSize = 10)
-        //{
-        //    /// TODO: ERROR WHEN ADD FUNCTION
-        //    var response = new ServiceResponse
-        //    {
-        //        Message = $"Paging products  has failed.",
-        //        StatusCode = "Fail_001",
-        //    };
-
-        //    var pagingResults = _productService.GetPaging(name, supplierID, categoryID, pageIndex, pageSize);
-        //    if (pagingResults != null)
-        //    {
-        //        response.IsSucessful = true;
-        //        response.Result = pagingResults;
-        //        response.Message = "Paging Successfully";
-        //        response.StatusCode = "Success";
-        //    }
-        //    return response;
-        //}
-
         /// <summary>
         /// 
         /// </summary>
@@ -95,9 +73,9 @@ namespace EC2.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("/{productId:int:min(1)}")]
-        public ServiceResponse Get(int productId)
+        public ProductServiceResponse Get(int productId)
         {            
-            var response = new ServiceResponse
+            var response = new ProductServiceResponse
             {
                 Message = $"Get product {productId} has failed.",
                 StatusCode = "Fail_001",
@@ -116,9 +94,9 @@ namespace EC2.Controllers
 
         [HttpPut]
         [Route("update/{productId:int:min(1)}")]
-        public ServiceResponse Update(int productId,ProductViewModel product)
+        public ProductServiceResponse Update(int productId,ProductViewModel product)
         {
-            var response = new ServiceResponse
+            var response = new ProductServiceResponse
             {
                 Message = $"Update product {productId} has failed.",
                 StatusCode = "Fail_001",
@@ -142,9 +120,9 @@ namespace EC2.Controllers
         /// <returns></returns>
         [HttpDelete]
         [Route("delete/{productId:int}")]
-        public ServiceResponse Delete(int productId)
+        public ProductServiceResponse Delete(int productId)
         {
-            var response = new ServiceResponse
+            var response = new ProductServiceResponse
             {
                 Message = "Delete product has failed.",
                 StatusCode = "Fail_001",
