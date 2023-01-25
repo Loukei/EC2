@@ -50,7 +50,6 @@ try
     builder.Services.AddTransient<ICategoryRepository, CategoryRepository>();
     builder.Services.AddTransient<IProductService, ProductService>();
 
-
     var app = builder.Build();
 
     // Configure the HTTP request pipeline.
