@@ -28,10 +28,11 @@
 ## TODO
 
 - 改用EF core
-  - 新增EF context
-  - 測試資料庫連線
   - 修改Repository
     - Product
+      - 解決循環引用的問題
+      - change tracking
+      - Paging function
     - Category
     - Suppilier
   - 測試功能
