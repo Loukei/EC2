@@ -8,7 +8,7 @@ namespace EC2.Repository
     public interface IProductRepository {      
         Product Create(ProductViewModel product);
         Product GetByID(int productId);
-        IEnumerable<Product> GetAll(string? name, int? supplierID, int? categoryID, int pageIndex, int pageSize);
+        //IEnumerable<Product> GetAll(string? name, int? supplierID, int? categoryID, int pageIndex, int pageSize);
         ProductPagingResponseModel GetPaging(string? name, int? supplierID, int? categoryID, int pageIndex, int pageSize);
         Product Update(int productId, ProductViewModel product);        
         bool Delete(int productId);
@@ -98,70 +98,47 @@ namespace EC2.Repository
         /// <param name="pageSize"></param>
         /// <returns>
         /// </returns>
-        public IEnumerable<Product> GetAll(string? name, int? supplierID, int? categoryID, int pageIndex, int pageSize)
+        //public IEnumerable<Product> GetAll(string? name, int? supplierID, int? categoryID, int pageIndex, int pageSize)
+        //{
+        //    /// TODO: 解決循環引用的問題: product > supplier > product
+        //    IEnumerable<Product> products = _northwindContext.Products
+        //        .Where(p => p.Status == true
+        //            && (name == null || p.ProductName == name)
+        //            && (supplierID == null || p.SupplierId == supplierID)
+        //            && (categoryID == null || p.CategoryId == categoryID)
+        //        )
+        //        //.Select(product => new
+        //        //{
+        //        //    product = product,
+        //        //    supplierName = product.Supplier.CompanyName,
+        //        //    cateogryName = product.Category.CategoryName
+        //        //})
+        //        .OrderBy(p => p.ProductId)
+        //        .Skip((pageIndex - 1) * pageSize)
+        //        .Take(pageSize)
+        //        .ToList();
+
+        //    return products;
+        //}
+
+        public ProductPagingResponseModel GetPaging(string? name, int? supplierID, int? categoryID, int pageIndex, int pageSize)
         {
-            /// TODO: 解決循環引用的問題: product > supplier > product
-            IEnumerable<Product> products = _northwindContext.Products
+            /// TODO:
+            /// 1. return with supplierName, categoryName
+            /// 2. query by supplierName, categoryName
+            var queryStatement = _northwindContext.Products
                 .Where(p => p.Status == true
                     && (name == null || p.ProductName == name)
                     && (supplierID == null || p.SupplierId == supplierID)
-                    && (categoryID == null || p.CategoryId == categoryID)
-                )
-                //select()
+                    && (categoryID == null || p.CategoryId == categoryID));
+            int totalRecords = queryStatement.Count();
+            int totalPages = Convert.ToInt32(Math.Ceiling(((double)totalRecords / (double)pageSize)));
+            var records = queryStatement
                 .OrderBy(p => p.ProductId)
                 .Skip((pageIndex - 1) * pageSize)
                 .Take(pageSize)
                 .ToList();
-
-            return products;
-        }
-
-        public ProductPagingResponseModel GetPaging(string? name, int? supplierID, int? categoryID, int pageIndex, int pageSize)
-        {
-            /// TODO: 分頁查詢，並且返回包裝的ProductPagingResponseModel
-            //using (var conn = _dapperContext.CreateConnection())
-            //{
-            //    /// 查詢2次
-            //    string whereStatementSQL = @"
-            //            ([SupplierID] = @SupplierID OR @SupplierID IS NULL)
-            //            AND
-            //            ([CategoryID] = @CategoryID OR @CategoryID IS NULL)
-            //            AND
-            //            ([ProductName] LIKE @name OR @name IS NULL)
-            //            AND
-            //            ([Status] = 1)";
-            //    /// 1. 共有幾筆資料? 並計算出共有幾頁
-            //    string countTotalRecordsSQL = @$"
-            //            SELECT COUNT(1) FROM Products 
-            //            WHERE {whereStatementSQL}";
-            //    /// 2. 該頁的所有row
-            //    string getTotalRecordsSQL = @$"
-            //            SELECT * FROM Products 
-            //            WHERE {whereStatementSQL}
-            //            ORDER BY [PRODUCTID] DESC
-            //            OFFSET (@pageIndex-1)*@pageSize ROWS FETCH NEXT @pageSize ROWS ONLY;";
-
-            //    int totalRecords = conn.QuerySingle<int>(countTotalRecordsSQL, 
-            //        new 
-            //        {
-            //            CategoryID = categoryID,
-            //            SupplierID = supplierID,
-            //            name = $"%{name}%"
-            //        });
-
-            //    int totalPages = Convert.ToInt32(Math.Ceiling(((double)totalRecords / (double)pageSize)));
-            //    IEnumerable<Product> data = conn.Query<Product>(getTotalRecordsSQL,
-            //        new
-            //        {
-            //            CategoryID = categoryID,
-            //            SupplierID = supplierID,
-            //            name = $"%{name}%",
-            //            pageSize = pageSize,
-            //            pageIndex = pageIndex                 
-            //        });
-            //    return new ProductPagingResponseModel(data,totalRecords, pageIndex, pageSize,totalPages);
-            //}
-            return null;
+            return new ProductPagingResponseModel(records, totalRecords, pageIndex, pageSize, totalPages);
         }
 
         /// <summary>

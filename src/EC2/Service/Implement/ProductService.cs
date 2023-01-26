@@ -45,37 +45,37 @@ namespace EC2.Service.Implement
             }
         }
 
-        public IEnumerable<Product> GetAll(string? name, int? supplierID, int? categoryID, int pageIndex = 1, int pageSize = 10)
-        {            
-            try
-            {
-                if (
-                    (
-                        supplierID.HasValue 
-                        && 
-                        _suppilierRepo.GetSuppilierByID(supplierID.Value) == null
-                    )    
-                    ||
-                    (   
-                        categoryID.HasValue 
-                        &&
-                        _categoryRepo.GetCategoryByID(categoryID.Value) == null
-                     )
-                    )
-                {
-                    throw new Exception($"SupplierID {supplierID} or CategoryID {categoryID} not exist!");
-                }
-                var products = _productRepo.GetAll(name, supplierID, categoryID, pageIndex, pageSize);
-                if (products == null)
-                    throw new Exception("No Products found.");
-                return products;
-            }
-            catch(Exception tex)
-            {
-                _logger.LogError($"unexpected error: {tex.Message}");
-                return null;
-            }
-        }
+        //public IEnumerable<Product> GetAll(string? name, int? supplierID, int? categoryID, int pageIndex = 1, int pageSize = 10)
+        //{            
+        //    try
+        //    {
+        //        if (
+        //            (
+        //                supplierID.HasValue 
+        //                && 
+        //                _suppilierRepo.GetSuppilierByID(supplierID.Value) == null
+        //            )    
+        //            ||
+        //            (   
+        //                categoryID.HasValue 
+        //                &&
+        //                _categoryRepo.GetCategoryByID(categoryID.Value) == null
+        //             )
+        //            )
+        //        {
+        //            throw new Exception($"SupplierID {supplierID} or CategoryID {categoryID} not exist!");
+        //        }
+        //        var products = _productRepo.GetAll(name, supplierID, categoryID, pageIndex, pageSize);
+        //        if (products == null)
+        //            throw new Exception("No Products found.");
+        //        return products;
+        //    }
+        //    catch(Exception tex)
+        //    {
+        //        _logger.LogError($"unexpected error: {tex.Message}");
+        //        return null;
+        //    }
+        //}
 
         public ProductPagingResponseModel GetPaging(string? name, int? supplierID, int? categoryID, int pageIndex = 1, int pageSize = 10)
         {

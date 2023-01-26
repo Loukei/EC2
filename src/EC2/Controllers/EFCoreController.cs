@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using EC2.Models.EFCore.Context;
 using EC2.Models.EFCore;
+using EC2.Models;
 
 namespace EC2.Controllers
 {
@@ -26,6 +27,26 @@ namespace EC2.Controllers
             var product = _northwindContext.Products.Single(p => p.ProductId == id);
 
             return product;
+        }        
+
+        [HttpGet]
+        [Route("/Product/Search")]
+        public ProductPagingResponseModel GetPaging(string? name, int? supplierID, int? categoryID, int pageIndex, int pageSize)
+        {
+            /// 
+            var queryStatement = _northwindContext.Products
+                .Where(p => p.Status == true
+                    && (name == null || p.ProductName == name)
+                    && (supplierID == null || p.SupplierId == supplierID)
+                    && (categoryID == null || p.CategoryId == categoryID));
+            int totalRecords = queryStatement.Count();
+            int totalPages = Convert.ToInt32(Math.Ceiling(((double)totalRecords / (double)pageSize)));
+            var records = queryStatement
+                .OrderBy(p => p.ProductId)
+                .Skip((pageIndex - 1) * pageSize)
+                .Take(pageSize).ToList();
+            return new ProductPagingResponseModel(records, totalRecords, pageIndex, pageSize, totalPages);
+
         }
     }
 }

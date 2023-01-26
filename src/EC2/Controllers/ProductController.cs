@@ -55,7 +55,8 @@ namespace EC2.Controllers
                 StatusCode = "Fail_001",
             };
 
-            var prods = _productService.GetAll(name, supplierID, categoryID, pageIndex, pageSize);
+            //var prods = _productService.GetAll(name, supplierID, categoryID, pageIndex, pageSize);
+            var prods = _productService.GetPaging(name, supplierID, categoryID, pageIndex, pageSize);
             if (prods != null)
             {
                 response.IsSucessful = true;
