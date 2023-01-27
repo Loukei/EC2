@@ -1,6 +1,5 @@
 using System.Text.Json.Serialization;
 using EC2.Context;
-using EC2.Models.EFCore.Context;
 using EC2.Repository;
 using EC2.Service;
 using EC2.Service.Implement;
@@ -37,12 +36,9 @@ try
     builder.Services.AddSwaggerGen();
 
     // EFCore
-    var connStr = builder.Configuration.GetConnectionString("Northwind");
-    builder.Services.AddDbContext<NorthwindContext>(opt => opt.UseSqlServer(connStr));
-    //builder.Services.AddSingleton<NorthwindContext>(s => new NorthwindContext(connStr));
-
-    // Dapper
-    builder.Services.AddSingleton<DapperContext>();
+    var connectStr = builder.Configuration.GetConnectionString("Northwind");
+    builder.Services.AddDbContext<NorthwindContext>(opt => opt.UseSqlServer(connectStr));
+    //builder.Services.AddSingleton<NorthwindContext>(s => new NorthwindContext(connectStr));
 
     // Register Repositorys to services
     builder.Services.AddTransient<IProductRepository, ProductRepository>();

@@ -1,6 +1,6 @@
 ﻿using EC2.Models;
 using EC2.Models.EFCore;
-using EC2.Models.EFCore.Context;
+using EC2.Context;
 
 namespace EC2.Repository
 {

@@ -1,4 +1,4 @@
-﻿using EC2.Models.EFCore.Context;
+﻿using EC2.Context;
 using EC2.Models.EFCore;
 
 namespace EC2.Repository
@@ -7,7 +7,6 @@ namespace EC2.Repository
     {
         Category GetCategoryByID(int categoryId);
     }
-
 
     public class CategoryRepository: ICategoryRepository
     {
@@ -27,15 +26,6 @@ namespace EC2.Repository
         /// <returns></returns>
         public Category GetCategoryByID(int categoryId)
         {
-            //using (var conn = _dapperContext.CreateConnection())
-            //{
-            //    string sql = @"
-            //        SELECT [CategoryID] ,[CategoryName],[Description] 
-            //        FROM Categories 
-            //        WHERE [CategoryID] = @categoryId";
-            //    var result = conn.QuerySingleOrDefault<Category>(sql, new { categoryId = categoryId });
-            //    return result;
-            //}
             try
             {
                 return _northwindContext.Categories.Single(c => c.CategoryId == categoryId);

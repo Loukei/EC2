@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using EC2.Models.EFCore;
 
-namespace EC2.Models.EFCore.Context;
+namespace EC2.Context;
 
+/// <summary>
+/// An DBContext generate by EFCore tool
+/// </summary>
 public partial class NorthwindContext : DbContext
 {
     public NorthwindContext(DbContextOptions<NorthwindContext> options)
