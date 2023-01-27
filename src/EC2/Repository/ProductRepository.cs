@@ -1,6 +1,7 @@
 ﻿using EC2.Models;
 using EC2.Models.EFCore;
 using EC2.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace EC2.Repository
 {
@@ -93,6 +94,8 @@ namespace EC2.Repository
             /// 1. return with supplierName, categoryName
             /// 2. query by supplierName, categoryName
             var queryStatement = _northwindContext.Products
+                .Include(c=>c.Category)
+                .Include(c=>c.Supplier)
                 .Where(p => p.Status == true
                     && (name == null || p.ProductName == name)
                     && (supplierID == null || p.SupplierId == supplierID)
@@ -104,6 +107,7 @@ namespace EC2.Repository
                 .Skip((pageIndex - 1) * pageSize)
                 .Take(pageSize)
                 .ToList();
+           // records.ForEach(p => p.Supplier = null);
             return new ProductPagingResponseModel(records, totalRecords, pageIndex, pageSize, totalPages);
         }
 
