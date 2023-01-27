@@ -10,12 +10,10 @@ namespace EC2.Repository
 
     public class CategoryRepository: ICategoryRepository
     {
-        //private readonly DapperContext _dapperContext;
         private readonly NorthwindContext _northwindContext;
 
         public CategoryRepository(NorthwindContext northwindContext)
         {
-            //_dapperContext = dapperContext;
             _northwindContext = northwindContext;
         }
 

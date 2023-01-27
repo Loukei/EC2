@@ -45,27 +45,33 @@ namespace EC2.Service.Implement
             }
         }
 
-        public ProductPagingResponseModel GetPaging(string? name, int? supplierID, int? categoryID, int pageIndex = 1, int pageSize = 10)
+        public ProductPagingResponseModel GetPaging(ProductPagingViewModel request)
         {
             try
             {
                 if (
                     (
-                        supplierID.HasValue
+                        request.supplierID.HasValue
                         &&
-                        _suppilierRepo.GetSuppilierByID(supplierID.Value) == null
+                        _suppilierRepo.GetSuppilierByID(request.supplierID.Value) == null
                     )
                     ||
                     (
-                        categoryID.HasValue
+                        request.categoryID.HasValue
                         &&
-                        _categoryRepo.GetCategoryByID(categoryID.Value) == null
+                        _categoryRepo.GetCategoryByID(request.categoryID.Value) == null
                      )
                     )
                 {
-                    throw new Exception($"SupplierID {supplierID} or CategoryID {categoryID} not exist!");
+                    throw new Exception($"SupplierID {request.supplierID} or CategoryID {request.categoryID} not exist!");
                 }
-                var pagingresults = _productRepo.GetPaging(name, supplierID, categoryID, pageIndex, pageSize);
+
+                var pagingresults = _productRepo.GetPaging(
+                    request.name, 
+                    request.supplierID, 
+                    request.categoryID,
+                    request.pageIndex,
+                    request.pageSize);
                 if (pagingresults == null)
                     throw new Exception("No Products found.");
                 return pagingresults;

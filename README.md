@@ -45,5 +45,17 @@
     - Category
     - Suppilier
   - 測試功能
+- API參數不能直接帶DB的Primary key
+- GetAll 添加suplilierName參數
+- 升級成.net core 7?
+- Async非同步
+- 國際化
+- 使用者認證與限制
+  - JWT
+  - 防止server崩潰，需要對不同的User做出流量管制
+- 添加測試
+- 正確的處理HTTP request，並回應適當的http status code
+
 
 ---
+

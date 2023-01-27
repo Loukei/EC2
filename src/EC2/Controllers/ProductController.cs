@@ -17,6 +17,29 @@ namespace EC2.Controllers
         public ProductController(IProductService productService)
         {
             _productService = productService;
+
+        }        
+
+        //product? pageindex = 1 & pagesize = 10 & name = abc & categoryid = 123
+        [HttpGet]
+        public ProductServiceResponse GetAll([FromQuery] ProductPagingViewModel parameters)
+        {
+            var response = new ProductServiceResponse
+            {
+                Message = $"GetAll products  has failed.",
+                StatusCode = "Fail_001",
+            };
+
+            var prods = _productService.GetPaging(parameters);
+
+            if (prods != null)
+            {
+                response.IsSucessful = true;
+                response.Result = prods;
+                response.Message = "GetAll Successfully";
+                response.StatusCode = "Success";
+            }
+            return response;
         }
 
         /// <summary>
@@ -43,28 +66,7 @@ namespace EC2.Controllers
             }
             return response;
         }
-
-        //product? pageindex = 1 & pagesize = 10 & name = abc & categoryid = 123
-        [HttpGet]
-        public ProductServiceResponse GetAll(string? name, int? supplierID, int? categoryID, int pageIndex = 1, int pageSize = 10)
-        {
-            var response = new ProductServiceResponse
-            {
-                Message = $"GetAll products  has failed.",
-                StatusCode = "Fail_001",
-            };
-            
-            var prods = _productService.GetPaging(name, supplierID, categoryID, pageIndex, pageSize);
-            if (prods != null)
-            {
-                response.IsSucessful = true;
-                response.Result = prods;
-                response.Message = "GetAll Successfully";
-                response.StatusCode = "Success";
-            }
-            return response;
-        }
-
+        
         /// <summary>
         /// 
         /// </summary>
