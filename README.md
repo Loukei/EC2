@@ -42,6 +42,7 @@
           - [Create Data Transfer Objects (DTOs) | Microsoft Learn](https://learn.microsoft.com/en-us/aspnet/web-api/overview/data/using-web-api-with-entity-framework/part-5)
           - [Select specific properties from include ones in entity framework core - Stack Overflow](https://stackoverflow.com/questions/46476117/select-specific-properties-from-include-ones-in-entity-framework-core)
       - change tracking
+      - 可能要修改repository的介面
     - Category
     - Suppilier
   - 測試功能

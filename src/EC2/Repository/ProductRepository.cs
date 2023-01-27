@@ -1,14 +1,12 @@
 ﻿using EC2.Models;
 using EC2.Models.EFCore;
 using EC2.Models.EFCore.Context;
-using Microsoft.EntityFrameworkCore;
 
 namespace EC2.Repository
 {
     public interface IProductRepository {      
         Product Create(ProductViewModel product);
         Product GetByID(int productId);
-        //IEnumerable<Product> GetAll(string? name, int? supplierID, int? categoryID, int pageIndex, int pageSize);
         ProductPagingResponseModel GetPaging(string? name, int? supplierID, int? categoryID, int pageIndex, int pageSize);
         Product Update(int productId, ProductViewModel product);        
         bool Delete(int productId);
@@ -89,38 +87,6 @@ namespace EC2.Repository
             return p;
         }
 
-        /// <summary>
-        /// Query Products by parameters
-        /// </summary>
-        /// <param name="CategoryID"></param>
-        /// <param name="name"></param>
-        /// <param name="pageIndex"></param>
-        /// <param name="pageSize"></param>
-        /// <returns>
-        /// </returns>
-        //public IEnumerable<Product> GetAll(string? name, int? supplierID, int? categoryID, int pageIndex, int pageSize)
-        //{
-        //    /// TODO: 解決循環引用的問題: product > supplier > product
-        //    IEnumerable<Product> products = _northwindContext.Products
-        //        .Where(p => p.Status == true
-        //            && (name == null || p.ProductName == name)
-        //            && (supplierID == null || p.SupplierId == supplierID)
-        //            && (categoryID == null || p.CategoryId == categoryID)
-        //        )
-        //        //.Select(product => new
-        //        //{
-        //        //    product = product,
-        //        //    supplierName = product.Supplier.CompanyName,
-        //        //    cateogryName = product.Category.CategoryName
-        //        //})
-        //        .OrderBy(p => p.ProductId)
-        //        .Skip((pageIndex - 1) * pageSize)
-        //        .Take(pageSize)
-        //        .ToList();
-
-        //    return products;
-        //}
-
         public ProductPagingResponseModel GetPaging(string? name, int? supplierID, int? categoryID, int pageIndex, int pageSize)
         {
             /// TODO:
@@ -186,12 +152,14 @@ namespace EC2.Repository
         {
             ///Mark Product.[Status] to false rather than delete row
             var product = _northwindContext.Products
-                .Single(p => p.ProductId == productId && p.Status == false);
-            _northwindContext.Products.Add(product);
+                .SingleOrDefault(p => p.ProductId == productId && p.Status == true);
+            if(product == null)
+            {
+                return false;
+            }
+            product.Status = false;
+            _northwindContext.Products.Update(product);
             _northwindContext.SaveChanges();
-            ///TODO:
-            /// change tracking
-            /// [變更偵測和通知 - EF Core | Microsoft Learn](https://learn.microsoft.com/zh-tw/ef/core/change-tracking/change-detection)
             return true;
         }
     }

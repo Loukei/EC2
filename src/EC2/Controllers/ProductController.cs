@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-//using System.Net;
 using EC2.Models;
 using EC2.Service;
 using EC2.Models.EFCore;
@@ -54,8 +53,7 @@ namespace EC2.Controllers
                 Message = $"GetAll products  has failed.",
                 StatusCode = "Fail_001",
             };
-
-            //var prods = _productService.GetAll(name, supplierID, categoryID, pageIndex, pageSize);
+            
             var prods = _productService.GetPaging(name, supplierID, categoryID, pageIndex, pageSize);
             if (prods != null)
             {
