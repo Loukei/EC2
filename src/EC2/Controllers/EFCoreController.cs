@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using EC2.Context;
+using EC2.Context; //NorthwindContext
 using EC2.Models.EFCore;
 using EC2.Models;
 
