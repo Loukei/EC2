@@ -107,7 +107,6 @@ namespace EC2.Repository
                 .Skip((pageIndex - 1) * pageSize)
                 .Take(pageSize)
                 .ToList();
-           // records.ForEach(p => p.Supplier = null);
             return new ProductPagingResponseModel(records, totalRecords, pageIndex, pageSize, totalPages);
         }
 

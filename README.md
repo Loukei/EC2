@@ -13,7 +13,7 @@
 ## 開發環境
 
 - SDK: asp.net 6.0
-- ORM: dapper
+- ORM: EF Core
 - Dataset: NorthWind
 - DBMS: SQL server Express 2019
 
