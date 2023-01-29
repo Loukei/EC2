@@ -2,7 +2,6 @@
 using EC2.Context;
 using Microsoft.EntityFrameworkCore;
 using EC2.Models.DTOs.Northwind;
-using EC2.Models.DTOs;
 
 namespace EC2.Repository
 {
@@ -47,49 +46,17 @@ namespace EC2.Repository
             return product;
         }
 
-        private ProductReplyVM ProductToProductDTO(Product p)
-        {
-            return new ProductReplyVM
-            {
-                ProductId = p.ProductId,
-                ProductName = p.ProductName,
-                SupplierId = p.SupplierId,
-                CategoryId = p.CategoryId,
-                QuantityPerUnit = p.QuantityPerUnit,
-                UnitPrice = p.UnitPrice,
-                UnitsInStock = p.UnitsInStock,
-                UnitsOnOrder = p.UnitsOnOrder,
-                ReorderLevel = p.ReorderLevel,
-                Discontinued = p.Discontinued,
-                CreatedDate = p.CreatedDate,
-                UpdatedDate = p.UpdatedDate
-            };
-        }
-
-        private static void fillingProduct(ProductRequestVM model, ref Product output)
-        {
-            output.ProductName = model.ProductName;
-            output.SupplierId = model.SupplierID;
-            output.CategoryId = model.CategoryID;
-            output.QuantityPerUnit = model.QuantityPerUnit;
-            output.UnitPrice = model.UnitPrice;
-            output.UnitsInStock = (short?)model.UnitsInStock;
-            output.UnitsOnOrder = (short?)model.UnitsOnOrder;
-            output.ReorderLevel = (short?)model.ReorderLevel;
-            output.Discontinued = model.Discontinued != 0;
-        }
-
         /// <summary>
         /// Create Single Delete, return object as response
         /// </summary>
-        /// <param name="product"></param>
+        /// <param name="parameters"></param>
         /// <returns>
         /// Success: Delete object 
         /// Fail: Null object
         /// </returns>
-        public Product Create(ProductRequestVM product)
+        public Product Create(ProductRequestVM parameters)
         {
-            var p = ModelToProduct(product);
+            var p = ModelToProduct(parameters);
             _northwindContext.Products.Add(p);
             _northwindContext.SaveChanges();
             return p;

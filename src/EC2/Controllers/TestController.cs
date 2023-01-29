@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using EC2.Context; //NorthwindContext
 using EC2.Models;
-using EC2.Models.DTOs.Northwind;
+using EC2.Mapper;
+
 
 namespace EC2.Controllers
 {
@@ -11,22 +12,23 @@ namespace EC2.Controllers
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
-    public class EFCoreController : Controller
+    public class TestController : Controller
     {
         private readonly NorthwindContext _northwindContext;
 
-        public EFCoreController(NorthwindContext northwindContext)
+        public TestController(NorthwindContext northwindContext)
         {
             _northwindContext = northwindContext;
         }
 
         [HttpGet]
         [Route("/Product/{id:int}")]
-        public Product Get(int id)
+        public ProductReplyVM Get(int id)
         {
             var product = _northwindContext.Products.Single(p => p.ProductId == id);
+            var vm = product.ToProductReplyVM();
 
-            return product;
+            return vm;
         }        
 
         [HttpGet]
@@ -48,5 +50,7 @@ namespace EC2.Controllers
             return new ProductPagingResponseModel(records, totalRecords, pageIndex, pageSize, totalPages);
 
         }
+
+
     }
 }

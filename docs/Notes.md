@@ -174,7 +174,24 @@ ServiceResponse GetAll([FromQuery] ProductPagingViewModel parameters)
 
 ---
 
+## AutoMapper
 
+Repository層負責做資料庫的查詢動作，但是一般而言資料表的欄位並不會直接全部拿來輸出，例如外鍵(FK)的ID，以及提供給內部商業邏輯的欄位(CreateTime)等等。
+
+當一個資料表的輸出欄位(`ProductDTO`)數量越多，將其轉換成需要的ViewModel(`ProductVM`)就需要大量的無腦工作。
+
+AutoMapper這項套件可以幫我們節省大量的工作。
+
+- [AutoMapper —— 類別轉換超省力 | 伊果的沒人看筆記本](https://igouist.github.io/post/2020/07/automapper/)
+- [[創意料理] 用 Expression 做一個簡易的 Object-Object Mapping | 軟體主廚的程式料理廚房 - 點部落](https://dotblogs.com.tw/supershowwei/2020/06/15/144053)
+- [AutoMapper vs Mapster in .NET - Code Maze](https://code-maze.com/automapper-vs-mapster-dotnet/)
+
+
+### 另外一種手段
+
+曾經考慮過要手動實現顯式轉型的擴充方法來實作
+
+- [C# 筆記：擴充方法 - Huan-Lin 學習筆記](https://www.huanlintalk.com/2009/01/csharp-3-extension-methods.html)
 
 ---
 
