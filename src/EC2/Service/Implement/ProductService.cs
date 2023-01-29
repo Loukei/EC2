@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using EC2.Models;
-using EC2.Models.EFCore;
 using EC2.Repository;
+using EC2.Models.DTOs.Northwind;
 
 namespace EC2.Service.Implement
 {
@@ -24,7 +24,7 @@ namespace EC2.Service.Implement
             _logger = logger;   
         }
 
-        public Product Create(ProductViewModel product)
+        public Product Create(ProductRequestVM product)
         {
             try
             {
@@ -100,7 +100,7 @@ namespace EC2.Service.Implement
             }
         }
 
-        public Product Update(int productId, ProductViewModel product)
+        public Product Update(int productId, ProductRequestVM product)
         {
             try
             {

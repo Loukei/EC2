@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using EC2.Models;
 using EC2.Service;
-using EC2.Models.EFCore;
+using EC2.Models.DTOs.Northwind;
 
 namespace EC2.Controllers
 {
@@ -48,7 +48,7 @@ namespace EC2.Controllers
         /// <param name="product"></param>
         /// <returns></returns>
         [HttpPost]
-        public ProductServiceResponse Create(ProductViewModel product)
+        public ProductServiceResponse Create(ProductRequestVM product)
         {
             var response = new ProductServiceResponse
             {
@@ -95,7 +95,7 @@ namespace EC2.Controllers
 
         [HttpPut]
         [Route("update/{productId:int:min(1)}")]
-        public ProductServiceResponse Update(int productId,ProductViewModel product)
+        public ProductServiceResponse Update(int productId,ProductRequestVM product)
         {
             var response = new ProductServiceResponse
             {

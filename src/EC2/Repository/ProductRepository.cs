@@ -1,19 +1,20 @@
 ﻿using EC2.Models;
-using EC2.Models.EFCore;
 using EC2.Context;
 using Microsoft.EntityFrameworkCore;
+using EC2.Models.DTOs.Northwind;
+using EC2.Models.DTOs;
 
 namespace EC2.Repository
 {
-    public interface IProductRepository {      
-        Product Create(ProductViewModel product);
+    public interface IProductRepository {
+        Product Create(ProductRequestVM product);
         Product GetByID(int productId);
         ProductPagingResponseModel GetPaging(string? name, int? supplierID, int? categoryID, int pageIndex, int pageSize);
-        Product Update(int productId, ProductViewModel product);        
+        Product Update(int productId, ProductRequestVM product);        
         bool Delete(int productId);
     }
 
-    public class ProductRepository: IProductRepository
+    public class ProductRepository : IProductRepository
     {
         private readonly NorthwindContext _northwindContext;
         public ProductRepository(NorthwindContext northwindContext)
@@ -26,7 +27,7 @@ namespace EC2.Repository
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        private Product ModelToProduct(ProductViewModel model)
+        private Product ModelToProduct(ProductRequestVM model)
         {
             var product = new Product
             {
@@ -46,7 +47,26 @@ namespace EC2.Repository
             return product;
         }
 
-        private static void fillingProduct(ProductViewModel model, ref Product output)
+        private ProductReplyVM ProductToProductDTO(Product p)
+        {
+            return new ProductReplyVM
+            {
+                ProductId = p.ProductId,
+                ProductName = p.ProductName,
+                SupplierId = p.SupplierId,
+                CategoryId = p.CategoryId,
+                QuantityPerUnit = p.QuantityPerUnit,
+                UnitPrice = p.UnitPrice,
+                UnitsInStock = p.UnitsInStock,
+                UnitsOnOrder = p.UnitsOnOrder,
+                ReorderLevel = p.ReorderLevel,
+                Discontinued = p.Discontinued,
+                CreatedDate = p.CreatedDate,
+                UpdatedDate = p.UpdatedDate
+            };
+        }
+
+        private static void fillingProduct(ProductRequestVM model, ref Product output)
         {
             output.ProductName = model.ProductName;
             output.SupplierId = model.SupplierID;
@@ -67,7 +87,7 @@ namespace EC2.Repository
         /// Success: Delete object 
         /// Fail: Null object
         /// </returns>
-        public Product Create(ProductViewModel product)
+        public Product Create(ProductRequestVM product)
         {
             var p = ModelToProduct(product);
             _northwindContext.Products.Add(p);
@@ -94,8 +114,8 @@ namespace EC2.Repository
             /// 1. return with supplierName, categoryName
             /// 2. query by supplierName, categoryName
             var queryStatement = _northwindContext.Products
-                .Include(c=>c.Category)
-                .Include(c=>c.Supplier)
+                .Include(c => c.Category)
+                .Include(c => c.Supplier)
                 .Where(p => p.Status == true
                     && (name == null || p.ProductName == name)
                     && (supplierID == null || p.SupplierId == supplierID)
@@ -118,8 +138,8 @@ namespace EC2.Repository
         /// <returns>
         /// 
         /// </returns>
-        public Product Update(int productId, ProductViewModel parameters)
-        {            
+        public Product Update(int productId, ProductRequestVM parameters)
+        {
             var product = _northwindContext.Products
                 .Where(p => p.ProductId == productId && p.Status == true)
                 .FirstOrDefault();
@@ -141,7 +161,7 @@ namespace EC2.Repository
             else
             {
                 return null;
-            }           
+            }
         }
 
         /// <summary>
@@ -156,7 +176,7 @@ namespace EC2.Repository
             ///Mark Product.[Status] to false rather than delete row
             var product = _northwindContext.Products
                 .SingleOrDefault(p => p.ProductId == productId && p.Status == true);
-            if(product == null)
+            if (product == null)
             {
                 return false;
             }

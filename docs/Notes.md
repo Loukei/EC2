@@ -130,6 +130,9 @@ Find方法會優先從緩存區域尋找值，因此速度更快，但是Find較
 - [DbContext.Find 方法 (Microsoft.EntityFrameworkCore) | Microsoft Learn](https://learn.microsoft.com/zh-tw/dotnet/api/microsoft.entityframeworkcore.dbcontext.find?view=efcore-6.0)
 - [查詢和尋找實體 - EF6 | Microsoft Learn](https://learn.microsoft.com/zh-tw/ef/ef6/querying/#finding-an-entity-by-composite-primary-key)
 - [.net - Entity Framework Find vs. Where - Stack Overflow](https://stackoverflow.com/questions/16966213/entity-framework-find-vs-where)
+
+---
+
 ## 參數繫結
 
 對於controller，使用`GET`方法時，函式參數直接對應到URL參數上
@@ -157,6 +160,21 @@ ServiceResponse GetAll([FromQuery] ProductPagingViewModel parameters)
 
 - [使用 ASP.NET Core 建立 Web API | Microsoft Learn](https://learn.microsoft.com/zh-tw/aspnet/core/web-api/?view=aspnetcore-7.0#binding-source-parameter-inference-1)
 - [c# - ASP.Net Core Web API Controller action with many parameters - Stack Overflow](https://stackoverflow.com/questions/50899602/asp-net-core-web-api-controller-action-with-many-parameters)
+
+---
+
+## Repostory Pattern 是否應該處裡連線錯誤?
+
+
+- [The Repository Pattern Is About Reconstitution, Not (Only) Data Access and Flexibility | by Nicklas Millard | Level Up Coding](https://levelup.gitconnected.com/the-repository-pattern-is-about-reconstitution-not-only-data-access-and-flexibility-b3986380a248)
+- [architecture - Should Repositories Throw Domain Errors - Stack Overflow](https://stackoverflow.com/questions/66480794/should-repositories-throw-domain-errors)
+- [architecture - Why do Examples of the Repository Pattern never deal with Database Connection Exceptions? - Stack Overflow](https://stackoverflow.com/questions/30112403/why-do-examples-of-the-repository-pattern-never-deal-with-database-connection-ex)
+- [Repository pattern and collection error handling - Stack Overflow](https://stackoverflow.com/questions/13108564/repository-pattern-and-collection-error-handling)
+- [殷浩详解DDD系列 第三讲 - Repository模式-阿里云开发者社区](https://developer.aliyun.com/article/758292)
+
+---
+
+
 
 ---
 

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using EC2.Models.EFCore;
+using EC2.Models.DTOs.Northwind;
 
 namespace EC2.Models
 {

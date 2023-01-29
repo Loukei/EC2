@@ -1,5 +1,5 @@
 ﻿using EC2.Context;
-using EC2.Models.EFCore;
+using EC2.Models.DTOs.Northwind;
 
 namespace EC2.Repository
 {
