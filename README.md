@@ -42,8 +42,6 @@
           - [Create Data Transfer Objects (DTOs) | Microsoft Learn](https://learn.microsoft.com/en-us/aspnet/web-api/overview/data/using-web-api-with-entity-framework/part-5)
           - [Select specific properties from include ones in entity framework core - Stack Overflow](https://stackoverflow.com/questions/46476117/select-specific-properties-from-include-ones-in-entity-framework-core)
         - 安裝NewtonJSON套件
-        - 使用 automapper 做轉換DTO  
-      - 可能要修改repository的介面
       - 更新時UpdateBy UpdateDate要跟著修改
     - Category
     - Suppilier

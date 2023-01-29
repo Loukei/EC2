@@ -18,10 +18,37 @@ namespace EC2.Controllers
         {
             _productService = productService;
 
-        }        
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="productId"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("/Product/{productId:int:min(1)}")]
+        public ProductServiceResponse Get(int productId)
+        {
+            var response = new ProductServiceResponse
+            {
+                Message = $"Get product {productId} has failed.",
+                StatusCode = "Fail_001",
+            };
+
+            var product = _productService.Get(productId);
+            if (product != null)
+            {
+                response.IsSucessful = true;
+                response.Result = product;
+                response.Message = "Get Successfully";
+                response.StatusCode = "Success";
+            }
+            return response;
+        }
 
         //product? pageindex = 1 & pagesize = 10 & name = abc & categoryid = 123
         [HttpGet]
+        [Route("/Product/all")]
         public ProductServiceResponse GetAll([FromQuery] ProductPagingViewModel parameters)
         {
             var response = new ProductServiceResponse
@@ -48,6 +75,7 @@ namespace EC2.Controllers
         /// <param name="product"></param>
         /// <returns></returns>
         [HttpPost]
+        [Route("/Product")]
         public ProductServiceResponse Create(ProductRequestVM parameters)
         {
             var response = new ProductServiceResponse
@@ -62,32 +90,6 @@ namespace EC2.Controllers
                 response.IsSucessful = true;
                 response.Result = prod;
                 response.Message = "Create Successfully";
-                response.StatusCode = "Success";
-            }
-            return response;
-        }
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="productId"></param>
-        /// <returns></returns>
-        [HttpGet]
-        [Route("/{productId:int:min(1)}")]
-        public ProductServiceResponse Get(int productId)
-        {            
-            var response = new ProductServiceResponse
-            {
-                Message = $"Get product {productId} has failed.",
-                StatusCode = "Fail_001",
-            };
-
-            var product = _productService.Get(productId);
-            if (product != null)
-            {
-                response.IsSucessful = true;
-                response.Result = product;
-                response.Message = "Get Successfully";
                 response.StatusCode = "Success";
             }
             return response;
