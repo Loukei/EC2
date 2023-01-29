@@ -2,6 +2,7 @@
 using EC2.Models;
 using EC2.Repository;
 using EC2.Models.DTOs.Northwind;
+using EC2.Mapper;
 
 namespace EC2.Service.Implement
 {
@@ -24,7 +25,7 @@ namespace EC2.Service.Implement
             _logger = logger;   
         }
 
-        public Product Create(ProductRequestVM product)
+        public ProductReplyVM Create(ProductRequestVM product)
         {
             try
             {
@@ -36,7 +37,7 @@ namespace EC2.Service.Implement
                 var result = _productRepo.Create(product);
                 if (result == null)
                     throw new Exception("Create product has failed");
-                return result;
+                return result.ToProductReplyVM();
             } 
             catch(Exception tex)
             {
@@ -83,14 +84,14 @@ namespace EC2.Service.Implement
             }
         }
 
-        public Product Get(int productId)
+        public ProductReplyVM Get(int productId)
         {
             try
             {
                 var product = _productRepo.GetByID(productId);
                 if (product == null)
                     throw new Exception($"Product {productId} does not exist.");
-                return product;
+                return product.ToProductReplyVM();
             }
             catch (Exception tex)
             {
@@ -100,7 +101,7 @@ namespace EC2.Service.Implement
             }
         }
 
-        public Product Update(int productId, ProductRequestVM product)
+        public ProductReplyVM Update(int productId, ProductRequestVM product)
         {
             try
             {
@@ -112,7 +113,7 @@ namespace EC2.Service.Implement
                 var newProduct = _productRepo.Update(productId, product);
                 if (newProduct == null)
                     throw new Exception($"Can't update Product {productId}");
-                return newProduct;
+                return newProduct.ToProductReplyVM();
             }
             catch (Exception tex)
             {

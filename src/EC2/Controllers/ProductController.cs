@@ -48,7 +48,7 @@ namespace EC2.Controllers
         /// <param name="product"></param>
         /// <returns></returns>
         [HttpPost]
-        public ProductServiceResponse Create(ProductRequestVM product)
+        public ProductServiceResponse Create(ProductRequestVM parameters)
         {
             var response = new ProductServiceResponse
             {
@@ -56,7 +56,7 @@ namespace EC2.Controllers
                 StatusCode = "Fail_001",
             };
 
-            var prod = _productService.Create(product);
+            var prod = _productService.Create(parameters);
             if (prod != null)
             {
                 response.IsSucessful = true;
@@ -82,11 +82,11 @@ namespace EC2.Controllers
                 StatusCode = "Fail_001",
             };
 
-            Product prod = _productService.Get(productId);
-            if (prod != null)
+            var product = _productService.Get(productId);
+            if (product != null)
             {
                 response.IsSucessful = true;
-                response.Result = prod;
+                response.Result = product;
                 response.Message = "Get Successfully";
                 response.StatusCode = "Success";
             }
@@ -95,7 +95,7 @@ namespace EC2.Controllers
 
         [HttpPut]
         [Route("update/{productId:int:min(1)}")]
-        public ProductServiceResponse Update(int productId,ProductRequestVM product)
+        public ProductServiceResponse Update(int productId,ProductRequestVM parameters)
         {
             var response = new ProductServiceResponse
             {
@@ -103,11 +103,11 @@ namespace EC2.Controllers
                 StatusCode = "Fail_001",
             };
 
-            Product prod = _productService.Update(productId, product);
-            if (prod != null)
+            var product = _productService.Update(productId, parameters);
+            if (product != null)
             {
                 response.IsSucessful = true;
-                response.Result = prod;
+                response.Result = product;
                 response.Message = "Update Successfully";
                 response.StatusCode = "Success";
             }
