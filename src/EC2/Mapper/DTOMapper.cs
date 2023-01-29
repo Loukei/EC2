@@ -18,7 +18,9 @@ namespace EC2.Mapper
         /// <returns></returns>
         public static ProductReplyVM ToProductReplyVM(this Product product)
         {
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Product, ProductReplyVM>()).CreateMapper();
+            /// TODO: a nullable return
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Product, ProductReplyVM>())
+                .CreateMapper();
             var vm = mapper.Map<ProductReplyVM>(product);
             return vm;
         }
@@ -28,11 +30,20 @@ namespace EC2.Mapper
         /// </summary>
         /// <param name="parameter"></param>
         /// <returns></returns>
-        public static Product ToProduct(ProductRequestVM parameter)
+        public static Product ToProduct(this ProductRequestVM parameter)
         {
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ProductRequestVM, Product>()).CreateMapper();
+            /// TODO: a nullable return
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ProductRequestVM, Product>())
+                .CreateMapper();
             var product = mapper.Map<Product>(parameter);
             return product;
+        }
+
+        public static List<ProductReplyVM> ToProductReplyVMList(this List<Product> products)
+        {
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Product, ProductReplyVM>()).CreateMapper();
+            var results = mapper.Map<List<Product>, List<ProductReplyVM>>(products);
+            return results;
         }
     }
 }

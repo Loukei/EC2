@@ -2,6 +2,8 @@
 using EC2.Context; //NorthwindContext
 using EC2.Models;
 using EC2.Mapper;
+using EC2.Models.DTOs.Northwind;
+using AutoMapper;
 
 
 namespace EC2.Controllers
@@ -33,7 +35,7 @@ namespace EC2.Controllers
 
         [HttpGet]
         [Route("/Product/Search")]
-        public ProductPagingResponseModel GetPaging(string? name, int? supplierID, int? categoryID, int pageIndex, int pageSize)
+        public PagedResults<ProductReplyVM> GetPaging(string? name, int? supplierID, int? categoryID, int pageIndex = 1, int pageSize = 10)
         {
             /// 
             var queryStatement = _northwindContext.Products
@@ -43,14 +45,11 @@ namespace EC2.Controllers
                     && (categoryID == null || p.CategoryId == categoryID));
             int totalRecords = queryStatement.Count();
             int totalPages = Convert.ToInt32(Math.Ceiling(((double)totalRecords / (double)pageSize)));
-            var records = queryStatement
-                .OrderBy(p => p.ProductId)
-                .Skip((pageIndex - 1) * pageSize)
+            var records = queryStatement.OrderBy(p => p.ProductId).Skip((pageIndex - 1) * pageSize)
                 .Take(pageSize).ToList();
-            return new ProductPagingResponseModel(records, totalRecords, pageIndex, pageSize, totalPages);
 
+            var results = records.ToProductReplyVMList();
+            return new PagedResults<ProductReplyVM>(results, totalRecords, pageIndex, pageSize, totalPages);
         }
-
-
     }
 }

@@ -42,7 +42,9 @@
           - [Create Data Transfer Objects (DTOs) | Microsoft Learn](https://learn.microsoft.com/en-us/aspnet/web-api/overview/data/using-web-api-with-entity-framework/part-5)
           - [Select specific properties from include ones in entity framework core - Stack Overflow](https://stackoverflow.com/questions/46476117/select-specific-properties-from-include-ones-in-entity-framework-core)
         - 安裝NewtonJSON套件
-      - 更新時UpdateBy UpdateDate要跟著修改
+      - `ProductPagingVM`需要改成范型以適應後續要求
+        - [Paging with Entity Framework Core](https://www.codingame.com/playgrounds/5363/paging-with-entity-framework-core)
+      - Create, Update, Delete時`UpdateBy`,`UpdateDate`要跟著修改
     - Category
     - Suppilier
   - 測試功能

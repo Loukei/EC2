@@ -2,6 +2,8 @@
 using EC2.Context;
 using Microsoft.EntityFrameworkCore;
 using EC2.Models.DTOs.Northwind;
+using EC2.Mapper;
+using System.Globalization;
 
 namespace EC2.Repository
 {
@@ -56,10 +58,12 @@ namespace EC2.Repository
         /// </returns>
         public Product Create(ProductRequestVM parameters)
         {
-            var p = ModelToProduct(parameters);
-            _northwindContext.Products.Add(p);
+            //var product = ModelToProduct(parameters);
+            var product = parameters.ToProduct();
+            product.UpdatedDate = DateTime.UtcNow;
+            _northwindContext.Products.Add(product);
             _northwindContext.SaveChanges();
-            return p;
+            return product;
         }
 
         /// <summary>
@@ -78,7 +82,7 @@ namespace EC2.Repository
         public ProductPagingResponseModel GetPaging(string? name, int? supplierID, int? categoryID, int pageIndex, int pageSize)
         {
             /// TODO:
-            /// 1. return with supplierName, categoryName
+            /// 
             /// 2. query by supplierName, categoryName
             var queryStatement = _northwindContext.Products
                 .Include(c => c.Category)
@@ -122,6 +126,7 @@ namespace EC2.Repository
                 product.UnitsOnOrder = (short?)parameters.UnitsOnOrder;
                 product.ReorderLevel = (short?)parameters.ReorderLevel;
                 product.Discontinued = parameters.Discontinued != 0;
+                product.UpdatedDate = DateTime.Now;
                 _northwindContext.SaveChanges();
                 return product;
             }
@@ -132,7 +137,7 @@ namespace EC2.Repository
         }
 
         /// <summary>
-        /// Delete by ProductId; but Simply set p.[Status] = 0
+        /// Delete by ProductId; but Simply set product.[Status] = 0
         /// </summary>
         /// <param name="productId"></param>
         /// <returns>
@@ -148,6 +153,7 @@ namespace EC2.Repository
                 return false;
             }
             product.Status = false;
+            product.UpdatedDate = DateTime.UtcNow;
             _northwindContext.Products.Update(product);
             _northwindContext.SaveChanges();
             return true;
