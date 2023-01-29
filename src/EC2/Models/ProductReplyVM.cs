@@ -37,6 +37,7 @@ namespace EC2.Models
         public DateTime CreatedDate { get; set; }
 
         public DateTime? UpdatedDate { get; set; }
+        public string? CategoryName { get; set; }
 
         //public int CreatedBy { get; set; }
 

@@ -3,6 +3,7 @@ using EC2.Models;
 using EC2.Repository;
 using EC2.Models.DTOs.Northwind;
 using EC2.Mapper;
+using AutoMapper;
 
 namespace EC2.Service.Implement
 {
@@ -12,17 +13,20 @@ namespace EC2.Service.Implement
         private readonly IProductRepository _productRepo;
         private readonly ICategoryRepository _categoryRepo;
         private readonly ISuppilierRepository _suppilierRepo;
+        private readonly IMapper _mapper;
         private readonly ILogger<ProductService> _logger;
 
         public ProductService(IProductRepository productRepo, 
             ICategoryRepository categoryRepo, 
             ISuppilierRepository suppilierRepo,
+            IMapper mapper,
             ILogger<ProductService> logger)
         {
             _productRepo = productRepo;
             _categoryRepo = categoryRepo;
             _suppilierRepo = suppilierRepo;
-            _logger = logger;   
+            _logger = logger;
+            _mapper = mapper;
         }
 
         public ProductReplyVM Create(ProductRequestVM product)
@@ -37,7 +41,7 @@ namespace EC2.Service.Implement
                 var result = _productRepo.Create(product);
                 if (result == null)
                     throw new Exception("Create product has failed");
-                return result.ToProductReplyVM();
+                return _mapper.Map<ProductReplyVM>(result);
             } 
             catch(Exception tex)
             {
@@ -91,7 +95,7 @@ namespace EC2.Service.Implement
                 var product = _productRepo.GetByID(productId);
                 if (product == null)
                     throw new Exception($"Product {productId} does not exist.");
-                return product.ToProductReplyVM();
+                return _mapper.Map<Product, ProductReplyVM>(product);
             }
             catch (Exception tex)
             {
@@ -113,7 +117,7 @@ namespace EC2.Service.Implement
                 var newProduct = _productRepo.Update(productId, product);
                 if (newProduct == null)
                     throw new Exception($"Can't update Product {productId}");
-                return newProduct.ToProductReplyVM();
+                return _mapper.Map<ProductReplyVM>(newProduct);
             }
             catch (Exception tex)
             {

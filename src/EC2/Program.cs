@@ -5,9 +5,12 @@ using EC2.Service;
 using EC2.Service.Implement;
 
 using Microsoft.EntityFrameworkCore;
-
 /// add Serilog addon
 using Serilog;
+
+using EC2.Mapper;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Hosting;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -38,7 +41,12 @@ try
     // EFCore
     var connectStr = builder.Configuration.GetConnectionString("Northwind");
     builder.Services.AddDbContext<NorthwindContext>(opt => opt.UseSqlServer(connectStr));
-    //builder.Services.AddSingleton<NorthwindContext>(s => new NorthwindContext(connectStr));
+
+    // Automapper
+    builder.Services.AddAutoMapper(c =>
+    {
+        c.AddProfile(new OrganizationProfile());
+    });
 
     // Register Repositorys to services
     builder.Services.AddTransient<IProductRepository, ProductRepository>();

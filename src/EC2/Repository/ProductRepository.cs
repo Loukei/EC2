@@ -2,8 +2,7 @@
 using EC2.Context;
 using Microsoft.EntityFrameworkCore;
 using EC2.Models.DTOs.Northwind;
-using EC2.Mapper;
-using System.Globalization;
+using AutoMapper;
 
 namespace EC2.Repository
 {
@@ -18,9 +17,11 @@ namespace EC2.Repository
     public class ProductRepository : IProductRepository
     {
         private readonly NorthwindContext _northwindContext;
-        public ProductRepository(NorthwindContext northwindContext)
+        private readonly IMapper _mapper;
+        public ProductRepository(NorthwindContext northwindContext, IMapper mapper)
         {
             _northwindContext = northwindContext;
+            _mapper = mapper;
         }
 
         /// <summary>
@@ -58,8 +59,7 @@ namespace EC2.Repository
         /// </returns>
         public Product Create(ProductRequestVM parameters)
         {
-            //var product = ModelToProduct(parameters);
-            var product = parameters.ToProduct();
+            var product = _mapper.Map<Product>(parameters);
             product.UpdatedDate = DateTime.UtcNow;
             _northwindContext.Products.Add(product);
             _northwindContext.SaveChanges();
@@ -82,7 +82,6 @@ namespace EC2.Repository
         public ProductPagingResponseModel GetPaging(string? name, int? supplierID, int? categoryID, int pageIndex, int pageSize)
         {
             /// TODO:
-            /// 
             /// 2. query by supplierName, categoryName
             var queryStatement = _northwindContext.Products
                 .Include(c => c.Category)
