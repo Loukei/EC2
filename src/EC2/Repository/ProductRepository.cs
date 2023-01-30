@@ -9,7 +9,7 @@ namespace EC2.Repository
     public interface IProductRepository {
         Product Create(ProductRequestVM product);
         Product GetByID(int productId);
-        ProductPagingResponseModel GetPaging(string? name, int? supplierID, int? categoryID, int pageIndex, int pageSize);
+        PagedResultsVM<Product> GetPaging(string? name, int? supplierID, int? categoryID, int pageIndex, int pageSize);
         Product Update(int productId, ProductRequestVM product);        
         bool Delete(int productId);
     }
@@ -75,29 +75,32 @@ namespace EC2.Repository
         {
             Product p = _northwindContext.Products
                 .Where(p => p.Status == true && p.ProductId == productId)
+                .Include(p => p.Supplier)
+                .Include(p => p.Category)
                 .First();
             return p;
         }
 
-        public ProductPagingResponseModel GetPaging(string? name, int? supplierID, int? categoryID, int pageIndex, int pageSize)
+        public PagedResultsVM<Product> GetPaging(string? name, int? supplierID, int? categoryID, int pageIndex, int pageSize)
         {
             /// TODO:
             /// 2. query by supplierName, categoryName
             var queryStatement = _northwindContext.Products
                 .Include(c => c.Category)
                 .Include(c => c.Supplier)
-                .Where(p => p.Status == true
+                .Where(p => (p.Status == true)
                     && (name == null || p.ProductName == name)
                     && (supplierID == null || p.SupplierId == supplierID)
                     && (categoryID == null || p.CategoryId == categoryID));
             int totalRecords = queryStatement.Count();
             int totalPages = Convert.ToInt32(Math.Ceiling(((double)totalRecords / (double)pageSize)));
-            var records = queryStatement
+            List<Product>? records = queryStatement
                 .OrderBy(p => p.ProductId)
                 .Skip((pageIndex - 1) * pageSize)
                 .Take(pageSize)
                 .ToList();
-            return new ProductPagingResponseModel(records, totalRecords, pageIndex, pageSize, totalPages);
+            records??= new List<Product>();
+            return new PagedResultsVM<Product>(records, totalRecords, pageIndex, pageSize, totalPages);
         }
 
         /// <summary>
@@ -116,6 +119,7 @@ namespace EC2.Repository
 
             if (product != null)
             {
+                /// TODO: make this part simplify
                 product.ProductName = parameters.ProductName;
                 product.SupplierId = parameters.SupplierID;
                 product.CategoryId = parameters.CategoryID;

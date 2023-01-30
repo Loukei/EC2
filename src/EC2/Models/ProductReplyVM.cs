@@ -37,7 +37,18 @@ namespace EC2.Models
         public DateTime CreatedDate { get; set; }
 
         public DateTime? UpdatedDate { get; set; }
+
+        /// <summary>
+        /// A foreign attribute follow by <see cref="ProductReplyVM.CategoryId"/>.
+        /// see also <seealso cref="Models.DTOs.Northwind.Category"/>
+        /// </summary>
         public string? CategoryName { get; set; }
+
+        /// <summary>
+        /// A foreign attribute follow by <see cref="ProductReplyVM.SupplierId"/>.
+        /// see also <seealso cref="Models.DTOs.Northwind.Supplier"/>
+        /// </summary>
+        public string? SupplierName { get; set; }
 
         //public int CreatedBy { get; set; }
 

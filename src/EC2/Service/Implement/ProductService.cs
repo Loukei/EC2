@@ -2,7 +2,6 @@
 using EC2.Models;
 using EC2.Repository;
 using EC2.Models.DTOs.Northwind;
-using EC2.Mapper;
 using AutoMapper;
 
 namespace EC2.Service.Implement
@@ -50,7 +49,7 @@ namespace EC2.Service.Implement
             }
         }
 
-        public ProductPagingResponseModel GetPaging(ProductPagingViewModel request)
+        public PagedResultsVM<Product> GetPaging(ProductPagingViewModel request)
         {
             try
             {

@@ -12,10 +12,12 @@ namespace EC2.Mapper
         public OrganizationProfile()
         {
             CreateMap<ProductRequestVM, Product>();
-            ///TODO: CategoryName should not empty when categoryId exists
+
             CreateMap<Product, ProductReplyVM>()
                 .ForMember(dest => dest.CategoryName, 
-                    opt => opt.MapFrom(src => (src.Category != null) ? src.Category.CategoryName : string.Empty));            
+                    opt => opt.MapFrom(src => (src.Category != null) ? src.Category.CategoryName : string.Empty))
+                .ForMember(dest => dest.SupplierName,
+                    opt => opt.MapFrom(src => (src.Supplier != null) ? src.Supplier.CompanyName : string.Empty));            
         }
     }
 }

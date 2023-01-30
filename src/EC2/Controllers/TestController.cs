@@ -4,7 +4,6 @@ using EC2.Models;
 using EC2.Models.DTOs.Northwind;
 using EC2.Repository;
 using AutoMapper;
-using Microsoft.EntityFrameworkCore;
 
 namespace EC2.Controllers
 {
@@ -16,16 +15,16 @@ namespace EC2.Controllers
     public class TestController : Controller
     {
         private readonly IMapper _mapper;
-        private readonly ProductRepository _productRepository;
+        private readonly IProductRepository _productRepository;
 
-        public TestController(IMapper mapper, ProductRepository productRepository)
+        public TestController(IMapper mapper, IProductRepository productRepository)
         {
             _mapper = mapper;
             _productRepository = productRepository;
         }
 
         [HttpGet]
-        [Route("/Product/{id:int}")]
+        [Route("/TESTAPI/Product/{id:int}")]
         public ProductReplyVM Get(int id)
         {
             var product = _productRepository.GetByID(id);
@@ -33,8 +32,8 @@ namespace EC2.Controllers
         }
 
         [HttpGet]
-        [Route("/Product/Search")]
-        public ProductPagingResponseModel GetPaging(string? name, int? supplierID, int? categoryID, int pageIndex = 1, int pageSize = 10)
+        [Route("/TESTAPI/Product/Search")]
+        public PagedResultsVM<Product> GetPaging(string? name, int? supplierID, int? categoryID, int pageIndex = 1, int pageSize = 10)
         {
             return _productRepository.GetPaging(name, supplierID, categoryID, pageIndex, pageSize);
         }

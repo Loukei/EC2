@@ -1,6 +1,6 @@
 ﻿namespace EC2.Models
 {
-    public class PagedResults<T>
+    public class PagedResultsVM<T>
     {
         public int TotalRecords { get; set; } = 0;
         public int CurrentPageNumber { get; set; } = 1;
@@ -10,7 +10,7 @@
         public bool HasPreviousPage { get; set; } = false;
         public List<T> Records { get; set; }
 
-        public PagedResults(List<T> data, int totalRecords, int currentPageNumber, int pageSize, int totalPages)
+        public PagedResultsVM(List<T> data, int totalRecords, int currentPageNumber, int pageSize, int totalPages)
         {
             Records = data;
             TotalRecords = totalRecords;
