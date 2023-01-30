@@ -9,7 +9,7 @@ namespace EC2.Repository
     public interface IProductRepository {
         Product Create(ProductRequestVM product);
         Product GetByID(int productId);
-        PagedResultsVM<Product> GetPaging(string? name, int? supplierID, int? categoryID, int pageIndex, int pageSize);
+        PagedResultsVM<Product> GetPaging(ProductPagingVM parameters);
         Product Update(int productId, ProductRequestVM product);        
         bool Delete(int productId);
     }
@@ -81,7 +81,7 @@ namespace EC2.Repository
             return p;
         }
 
-        public PagedResultsVM<Product> GetPaging(string? name, int? supplierID, int? categoryID, int pageIndex, int pageSize)
+        public PagedResultsVM<Product> GetPaging(ProductPagingVM parameters)
         {
             /// TODO:
             /// 2. query by supplierName, categoryName
@@ -89,18 +89,18 @@ namespace EC2.Repository
                 .Include(c => c.Category)
                 .Include(c => c.Supplier)
                 .Where(p => (p.Status == true)
-                    && (name == null || p.ProductName == name)
-                    && (supplierID == null || p.SupplierId == supplierID)
-                    && (categoryID == null || p.CategoryId == categoryID));
+                    && (parameters.name == null || p.ProductName == parameters.name)
+                    && (parameters.supplierID == null || p.SupplierId == parameters.supplierID)
+                    && (parameters.categoryID == null || p.CategoryId == parameters.categoryID));
             int totalRecords = queryStatement.Count();
-            int totalPages = Convert.ToInt32(Math.Ceiling(((double)totalRecords / (double)pageSize)));
+            int totalPages = Convert.ToInt32(Math.Ceiling(((double)totalRecords / (double)parameters.pageSize)));
             List<Product>? records = queryStatement
                 .OrderBy(p => p.ProductId)
-                .Skip((pageIndex - 1) * pageSize)
-                .Take(pageSize)
+                .Skip((parameters.pageIndex - 1) * parameters.pageSize)
+                .Take(parameters.pageSize)
                 .ToList();
             records??= new List<Product>();
-            return new PagedResultsVM<Product>(records, totalRecords, pageIndex, pageSize, totalPages);
+            return new PagedResultsVM<Product>(records, totalRecords, parameters.pageIndex, parameters.pageSize, totalPages);
         }
 
         /// <summary>

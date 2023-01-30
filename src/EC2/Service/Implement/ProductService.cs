@@ -72,12 +72,7 @@ namespace EC2.Service.Implement
                     throw new Exception($"SupplierID {request.supplierID} or CategoryID {request.categoryID} not exist!");
                 }
 
-                var pagingresults = _productRepo.GetPaging(
-                    request.name, 
-                    request.supplierID, 
-                    request.categoryID,
-                    request.pageIndex,
-                    request.pageSize);
+                var pagingresults = _productRepo.GetPaging(request);
                 if (pagingresults == null)
                 {
                     throw new Exception("No Products found.");

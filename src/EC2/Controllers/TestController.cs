@@ -47,11 +47,9 @@ namespace EC2.Controllers
 
         [HttpGet]
         [Route("/TESTAPI/Product/Search")]
-        public PagedResultsVM<Product> GetPaging(string? name, int? supplierID, int? categoryID, int pageIndex = 1, int pageSize = 10)
+        public PagedResultsVM<Product> GetPaging([FromQuery] ProductPagingVM parameters)
         {
-            return _productRepository.GetPaging(name, supplierID, categoryID, pageIndex, pageSize);
+            return _productRepository.GetPaging(parameters);
         }
     }
-
-    
 }
