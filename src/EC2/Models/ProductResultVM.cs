@@ -10,7 +10,7 @@ namespace EC2.Models
     /// <seealso cref="Supplier"/>
     /// <seealso cref="Category"/>
     /// </summary>
-    public class ProductReplyVM
+    public class ProductResultVM
     {
         public int ProductId { get; set; }
 
@@ -39,13 +39,13 @@ namespace EC2.Models
         public DateTime? UpdatedDate { get; set; }
 
         /// <summary>
-        /// A foreign attribute follow by <see cref="ProductReplyVM.CategoryId"/>.
+        /// A foreign attribute follow by <see cref="ProductResultVM.CategoryId"/>.
         /// see also <seealso cref="Models.DTOs.Northwind.Category"/>
         /// </summary>
         public string? CategoryName { get; set; }
 
         /// <summary>
-        /// A foreign attribute follow by <see cref="ProductReplyVM.SupplierId"/>.
+        /// A foreign attribute follow by <see cref="ProductResultVM.SupplierId"/>.
         /// see also <seealso cref="Models.DTOs.Northwind.Supplier"/>
         /// </summary>
         public string? SupplierName { get; set; }

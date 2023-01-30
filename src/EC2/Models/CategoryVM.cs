@@ -6,7 +6,7 @@ namespace EC2.Models
     /// <summary>
     /// 驗證Category
     /// </summary>
-    public class CategoryViewModel
+    public class CategoryVM
     {
         //public int CategoryID { get; set; }
         [StringLength(15)]

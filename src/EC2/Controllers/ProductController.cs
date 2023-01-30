@@ -49,7 +49,7 @@ namespace EC2.Controllers
         //product? pageindex = 1 & pagesize = 10 & name = abc & categoryid = 123
         [HttpGet]
         [Route("/Product/all")]
-        public ProductServiceResponse GetAll([FromQuery] ProductPagingViewModel parameters)
+        public ProductServiceResponse GetAll([FromQuery] ProductPagingVM parameters)
         {
             var response = new ProductServiceResponse
             {

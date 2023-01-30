@@ -13,11 +13,16 @@ namespace EC2.Mapper
         {
             CreateMap<ProductRequestVM, Product>();
 
-            CreateMap<Product, ProductReplyVM>()
+            CreateMap<Product, ProductResultVM>()
                 .ForMember(dest => dest.CategoryName, 
                     opt => opt.MapFrom(src => (src.Category != null) ? src.Category.CategoryName : string.Empty))
                 .ForMember(dest => dest.SupplierName,
-                    opt => opt.MapFrom(src => (src.Supplier != null) ? src.Supplier.CompanyName : string.Empty));            
+                    opt => opt.MapFrom(src => (src.Supplier != null) ? src.Supplier.CompanyName : string.Empty));
+            /// TODO: mapping PagedResultsVM<ProductResultVM>
+            /// <see cref="Service.Implement.ProductService.GetPaging(ProductPagingVM)"/>            
+            CreateMap(typeof(PagedResultsVM<>), typeof(PagedResultsVM<>));
+            /// TODO: TEST genreic mapper
+            CreateMap(typeof(MapperTest<>), typeof(MapperTest<>));
         }
     }
 }

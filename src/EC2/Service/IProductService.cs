@@ -5,10 +5,10 @@ namespace EC2.Service
 {
     public interface IProductService
     {
-        ProductReplyVM Create(ProductRequestVM product);
-        PagedResultsVM<Product> GetPaging(ProductPagingViewModel request);
-        ProductReplyVM Get(int productId);
-        ProductReplyVM Update(int productId, ProductRequestVM product);
+        ProductResultVM Create(ProductRequestVM product);
+        PagedResultsVM<ProductResultVM> GetPaging(ProductPagingVM request);
+        ProductResultVM Get(int productId);
+        ProductResultVM Update(int productId, ProductRequestVM product);
         bool Delete(int productId);
     }
 }

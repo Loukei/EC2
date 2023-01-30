@@ -6,7 +6,9 @@ using AutoMapper;
 
 namespace EC2.Service.Implement
 {
-
+    /// <summary>
+    /// 
+    /// </summary>
     public class ProductService: IProductService
     {
         private readonly IProductRepository _productRepo;
@@ -28,7 +30,7 @@ namespace EC2.Service.Implement
             _mapper = mapper;
         }
 
-        public ProductReplyVM Create(ProductRequestVM product)
+        public ProductResultVM Create(ProductRequestVM product)
         {
             try
             {
@@ -40,7 +42,7 @@ namespace EC2.Service.Implement
                 var result = _productRepo.Create(product);
                 if (result == null)
                     throw new Exception("Create product has failed");
-                return _mapper.Map<ProductReplyVM>(result);
+                return _mapper.Map<ProductResultVM>(result);
             } 
             catch(Exception tex)
             {
@@ -49,7 +51,7 @@ namespace EC2.Service.Implement
             }
         }
 
-        public PagedResultsVM<Product> GetPaging(ProductPagingViewModel request)
+        public PagedResultsVM<ProductResultVM> GetPaging(ProductPagingVM request)
         {
             try
             {
@@ -77,8 +79,14 @@ namespace EC2.Service.Implement
                     request.pageIndex,
                     request.pageSize);
                 if (pagingresults == null)
+                {
                     throw new Exception("No Products found.");
-                return pagingresults;
+                }
+
+                /// TODO: use automapper turn 
+                /// PagedResultsVM<Product> to PagedResultsVM<ProductResultVM>
+                return _mapper.Map<PagedResultsVM<Product>, PagedResultsVM<ProductResultVM>>(pagingresults);
+                //List<ProductRequestVM> products = _mapper.Map<List<ProductRequestVM>>(pagingresults.Records);
             }
             catch (Exception tex)
             {
@@ -87,14 +95,14 @@ namespace EC2.Service.Implement
             }
         }
 
-        public ProductReplyVM Get(int productId)
+        public ProductResultVM Get(int productId)
         {
             try
             {
                 var product = _productRepo.GetByID(productId);
                 if (product == null)
                     throw new Exception($"Product {productId} does not exist.");
-                return _mapper.Map<Product, ProductReplyVM>(product);
+                return _mapper.Map<Product, ProductResultVM>(product);
             }
             catch (Exception tex)
             {
@@ -104,7 +112,7 @@ namespace EC2.Service.Implement
             }
         }
 
-        public ProductReplyVM Update(int productId, ProductRequestVM product)
+        public ProductResultVM Update(int productId, ProductRequestVM product)
         {
             try
             {
@@ -116,7 +124,7 @@ namespace EC2.Service.Implement
                 var newProduct = _productRepo.Update(productId, product);
                 if (newProduct == null)
                     throw new Exception($"Can't update Product {productId}");
-                return _mapper.Map<ProductReplyVM>(newProduct);
+                return _mapper.Map<ProductResultVM>(newProduct);
             }
             catch (Exception tex)
             {

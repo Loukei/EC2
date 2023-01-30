@@ -25,10 +25,24 @@ namespace EC2.Controllers
 
         [HttpGet]
         [Route("/TESTAPI/Product/{id:int}")]
-        public ProductReplyVM Get(int id)
+        public ProductResultVM Get(int id)
         {
+            ///TODO: test generic automapper
+            Product p = new Product()
+            {
+                ProductId = id,
+                ProductName = "Test"
+            };
+            var testsource = new MapperTest<Product>()
+            {
+                Id = id,
+                Data = p
+            };
+            var target = _mapper.Map<MapperTest<ProductResultVM>>(testsource);
+            Console.WriteLine(target.GetType());
+            ///
             var product = _productRepository.GetByID(id);
-            return _mapper.Map<ProductReplyVM>(product);
+            return _mapper.Map<ProductResultVM>(product);
         }
 
         [HttpGet]
@@ -38,4 +52,6 @@ namespace EC2.Controllers
             return _productRepository.GetPaging(name, supplierID, categoryID, pageIndex, pageSize);
         }
     }
+
+    
 }

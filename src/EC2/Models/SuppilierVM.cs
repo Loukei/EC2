@@ -3,7 +3,7 @@
     /// <summary>
     /// 
     /// </summary>
-    public class SuppilierViewModel
+    public class SuppilierVM
     {
         // TODO: add validation logic here
 
