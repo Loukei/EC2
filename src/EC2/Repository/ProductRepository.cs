@@ -59,8 +59,10 @@ namespace EC2.Repository
         /// </returns>
         public Product Create(ProductRequestVM parameters)
         {
-            var product = _mapper.Map<Product>(parameters);
+            Product product = _mapper.Map<Product>(parameters);
             product.UpdatedDate = DateTime.UtcNow;
+            ///FIX: default update fk
+            product.UpdatedBy = 1;
             _northwindContext.Products.Add(product);
             _northwindContext.SaveChanges();
             return product;
@@ -130,6 +132,8 @@ namespace EC2.Repository
                 product.ReorderLevel = (short?)parameters.ReorderLevel;
                 product.Discontinued = parameters.Discontinued != 0;
                 product.UpdatedDate = DateTime.Now;
+                /// FIX: default update fk
+                product.UpdatedBy = 1;
                 _northwindContext.SaveChanges();
                 return product;
             }
@@ -157,6 +161,8 @@ namespace EC2.Repository
             }
             product.Status = false;
             product.UpdatedDate = DateTime.UtcNow;
+            ///FIX: default update fk
+            product.UpdatedBy = 1;
             _northwindContext.Products.Update(product);
             _northwindContext.SaveChanges();
             return true;
