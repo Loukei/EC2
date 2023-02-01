@@ -27,31 +27,6 @@ namespace EC2.Repository
         }
 
         /// <summary>
-        /// Turn ProductViewModel to Product
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        private Product ModelToProduct(ProductUpdateVM model)
-        {
-            var product = new Product
-            {
-                ProductName = model.ProductName,
-                SupplierId = model.SupplierID,
-                CategoryId = model.CategoryID,
-                QuantityPerUnit = model.QuantityPerUnit,
-                UnitPrice = model.UnitPrice,
-                UnitsInStock = (short?)model.UnitsInStock,
-                UnitsOnOrder = (short?)model.UnitsOnOrder,
-                ReorderLevel = (short?)model.ReorderLevel,
-                Discontinued = model.Discontinued != 0,
-                /// Set UpdateBy admin user
-                UpdatedBy = 1,
-                Status = true,
-            };
-            return product;
-        }
-
-        /// <summary>
         /// Create Single Delete, return object as response
         /// </summary>
         /// <param name="parameters"></param>
@@ -87,8 +62,7 @@ namespace EC2.Repository
 
         public IPagedList<Product> GetPaging(ProductPageQueryVM parameters)
         {
-            /// TODO:
-            /// 2. query by supplierName, categoryName
+            /// TODO: query by supplierName, categoryName
              var records = from p in _northwindContext.Products
                           where (p.Status == true)
                             && (parameters.name == null || p.ProductName == parameters.name)
@@ -112,7 +86,7 @@ namespace EC2.Repository
         }
 
         /// <summary>
-        /// Update parameters by @productId, set value by @parameters
+        /// Update parameters by <paramref name="productId"/>, set value by <paramref name="parameters"/>
         /// </summary>
         /// <param name="productID"></param>
         /// <param name="parameters"></param>

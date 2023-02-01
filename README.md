@@ -1,6 +1,6 @@
 # EC2 
 
-- 使用asp.net core WebAPI 開發一個具有CRUD功能的API
+使用asp.net core WebAPI 開發一個具有CRUD功能的API
 
 ---
 

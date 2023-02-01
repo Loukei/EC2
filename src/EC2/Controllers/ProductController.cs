@@ -48,7 +48,7 @@ namespace EC2.Controllers
 
         //product? pageindex = 1 & pagesize = 10 & name = abc & categoryid = 123
         [HttpGet]
-        [Route("all")]
+        [Route("All")]
         public ProductAPIResultVM GetAll([FromQuery] ProductPageQueryVM parameters)
         {
             var response = new ProductAPIResultVM
