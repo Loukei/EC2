@@ -23,19 +23,19 @@ namespace EC2.Controllers
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="productId"></param>
+        /// <param name="Id"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("/Product/{productId:int:min(1)}")]
-        public ProductServiceResponse Get(int productId)
+        [Route("{Id:int:min(1)}")]
+        public ProductAPIResultVM Get(int Id)
         {
-            var response = new ProductServiceResponse
+            var response = new ProductAPIResultVM
             {
-                Message = $"Get product {productId} has failed.",
+                Message = $"Get product {Id} has failed.",
                 StatusCode = "Fail_001",
             };
 
-            var product = _productService.Get(productId);
+            var product = _productService.Get(Id);
             if (product != null)
             {
                 response.IsSucessful = true;
@@ -48,10 +48,10 @@ namespace EC2.Controllers
 
         //product? pageindex = 1 & pagesize = 10 & name = abc & categoryid = 123
         [HttpGet]
-        [Route("/Product/all")]
-        public ProductServiceResponse GetAll([FromQuery] ProductPagingVM parameters)
+        [Route("all")]
+        public ProductAPIResultVM GetAll([FromQuery] ProductPageQueryVM parameters)
         {
-            var response = new ProductServiceResponse
+            var response = new ProductAPIResultVM
             {
                 Message = $"GetAll products  has failed.",
                 StatusCode = "Fail_001",
@@ -75,10 +75,10 @@ namespace EC2.Controllers
         /// <param name="product"></param>
         /// <returns></returns>
         [HttpPost]
-        [Route("/Product")]
-        public ProductServiceResponse Create(ProductRequestVM parameters)
+        //[Route("")]
+        public ProductAPIResultVM Create(ProductUpdateVM parameters)
         {
-            var response = new ProductServiceResponse
+            var response = new ProductAPIResultVM
             {
                 Message = "Create product has failed.",
                 StatusCode = "Fail_001",
@@ -96,16 +96,16 @@ namespace EC2.Controllers
         }
 
         [HttpPut]
-        [Route("update/{productId:int:min(1)}")]
-        public ProductServiceResponse Update(int productId,ProductRequestVM parameters)
+        [Route("{Id:int:min(1)}")]
+        public ProductAPIResultVM Update(int Id,ProductUpdateVM parameters)
         {
-            var response = new ProductServiceResponse
+            var response = new ProductAPIResultVM
             {
-                Message = $"Update product {productId} has failed.",
+                Message = $"Update product {Id} has failed.",
                 StatusCode = "Fail_001",
             };
 
-            var product = _productService.Update(productId, parameters);
+            var product = _productService.Update(Id, parameters);
             if (product != null)
             {
                 response.IsSucessful = true;
@@ -117,21 +117,21 @@ namespace EC2.Controllers
         }
 
         /// <summary>
-        /// Delete single product by productId
+        /// Delete single product by Id
         /// </summary>
-        /// <param name="productId"></param>
+        /// <param name="Id"></param>
         /// <returns></returns>
         [HttpDelete]
-        [Route("delete/{productId:int}")]
-        public ProductServiceResponse Delete(int productId)
+        [Route("{Id:int:min(1)}")]
+        public ProductAPIResultVM Delete(int Id)
         {
-            var response = new ProductServiceResponse
+            var response = new ProductAPIResultVM
             {
                 Message = "Delete product has failed.",
                 StatusCode = "Fail_001",
             };
 
-            bool result = _productService.Delete(productId);
+            bool result = _productService.Delete(Id);
             if (result)
             {
                 response.IsSucessful = true;

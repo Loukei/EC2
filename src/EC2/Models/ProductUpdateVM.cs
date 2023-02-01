@@ -8,7 +8,7 @@ namespace EC2.Models
     /// - 用來限制API開放出來的資料型式，有些欄位不需要給API user看到
     /// - 驗證資料邏輯
     /// </summary>
-    public class ProductRequestVM
+    public class ProductUpdateVM
     {
 
         //[Required]

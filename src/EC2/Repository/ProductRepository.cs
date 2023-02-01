@@ -3,14 +3,16 @@ using EC2.Context;
 using Microsoft.EntityFrameworkCore;
 using EC2.Models.DTOs.Northwind;
 using AutoMapper;
+using X.PagedList;
 
 namespace EC2.Repository
 {
     public interface IProductRepository {
-        Product Create(ProductRequestVM product);
+        Product Create(ProductUpdateVM product);
         Product GetByID(int productId);
-        PagedResultsVM<Product> GetPaging(ProductPagingVM parameters);
-        Product Update(int productId, ProductRequestVM product);        
+        IPagedList<Product> GetPaging(ProductPageQueryVM parameters);
+        int CountByQuery(ProductPageQueryVM parameters);
+        Product Update(int productId, ProductUpdateVM product);        
         bool Delete(int productId);
     }
 
@@ -29,7 +31,7 @@ namespace EC2.Repository
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        private Product ModelToProduct(ProductRequestVM model)
+        private Product ModelToProduct(ProductUpdateVM model)
         {
             var product = new Product
             {
@@ -57,7 +59,7 @@ namespace EC2.Repository
         /// Success: Delete object 
         /// Fail: Null object
         /// </returns>
-        public Product Create(ProductRequestVM parameters)
+        public Product Create(ProductUpdateVM parameters)
         {
             Product product = _mapper.Map<Product>(parameters);
             product.UpdatedDate = DateTime.UtcNow;
@@ -83,10 +85,22 @@ namespace EC2.Repository
             return p;
         }
 
-        public PagedResultsVM<Product> GetPaging(ProductPagingVM parameters)
+        public IPagedList<Product> GetPaging(ProductPageQueryVM parameters)
         {
             /// TODO:
             /// 2. query by supplierName, categoryName
+             var records = from p in _northwindContext.Products
+                          where (p.Status == true)
+                            && (parameters.name == null || p.ProductName == parameters.name)
+                            && (parameters.supplierID == null || p.SupplierId == parameters.supplierID)
+                            && (parameters.categoryID == null || p.CategoryId == parameters.categoryID)
+                          orderby p.ProductId
+                          select p;
+            return records.ToPagedList(parameters.pageIndex, parameters.pageSize);
+        }
+
+        public int CountByQuery(ProductPageQueryVM parameters)
+        {
             var queryStatement = _northwindContext.Products
                 .Include(c => c.Category)
                 .Include(c => c.Supplier)
@@ -94,15 +108,7 @@ namespace EC2.Repository
                     && (parameters.name == null || p.ProductName == parameters.name)
                     && (parameters.supplierID == null || p.SupplierId == parameters.supplierID)
                     && (parameters.categoryID == null || p.CategoryId == parameters.categoryID));
-            int totalRecords = queryStatement.Count();
-            int totalPages = Convert.ToInt32(Math.Ceiling(((double)totalRecords / (double)parameters.pageSize)));
-            List<Product>? records = queryStatement
-                .OrderBy(p => p.ProductId)
-                .Skip((parameters.pageIndex - 1) * parameters.pageSize)
-                .Take(parameters.pageSize)
-                .ToList();
-            records??= new List<Product>();
-            return new PagedResultsVM<Product>(records, totalRecords, parameters.pageIndex, parameters.pageSize, totalPages);
+            return queryStatement.Count();
         }
 
         /// <summary>
@@ -113,7 +119,7 @@ namespace EC2.Repository
         /// <returns>
         /// 
         /// </returns>
-        public Product Update(int productId, ProductRequestVM parameters)
+        public Product Update(int productId, ProductUpdateVM parameters)
         {
             var product = _northwindContext.Products
                 .Where(p => p.ProductId == productId && p.Status == true)

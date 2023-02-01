@@ -1,5 +1,4 @@
 ﻿using EC2.Models.DTOs.Northwind;
-using System.ComponentModel.DataAnnotations;
 
 namespace EC2.Models
 {
@@ -10,7 +9,7 @@ namespace EC2.Models
     /// <seealso cref="Supplier"/>
     /// <seealso cref="Category"/>
     /// </summary>
-    public class ProductResultVM
+    public class ProductVM
     {
         public int ProductId { get; set; }
 
@@ -39,13 +38,13 @@ namespace EC2.Models
         public DateTime? UpdatedDate { get; set; }
 
         /// <summary>
-        /// A foreign attribute follow by <see cref="ProductResultVM.CategoryId"/>.
+        /// A foreign attribute follow by <see cref="ProductVM.CategoryId"/>.
         /// see also <seealso cref="Models.DTOs.Northwind.Category"/>
         /// </summary>
         public string? CategoryName { get; set; }
 
         /// <summary>
-        /// A foreign attribute follow by <see cref="ProductResultVM.SupplierId"/>.
+        /// A foreign attribute follow by <see cref="ProductVM.SupplierId"/>.
         /// see also <seealso cref="Models.DTOs.Northwind.Supplier"/>
         /// </summary>
         public string? SupplierName { get; set; }

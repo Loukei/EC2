@@ -34,8 +34,6 @@
 
 ## TODO
 
-- automapper處理`PagedResults<Product>` -> `PagedResults<ProductResultVM>`
-- X.PagedList.Mvc.Core
 - 修改Repository介面
   - Product
   - Category

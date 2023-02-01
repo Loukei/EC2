@@ -3,6 +3,7 @@ using EC2.Context; //NorthwindContext
 using EC2.Models;
 using EC2.Models.DTOs.Northwind;
 using EC2.Repository;
+using EC2.Service;
 using AutoMapper;
 
 namespace EC2.Controllers
@@ -16,40 +17,34 @@ namespace EC2.Controllers
     {
         private readonly IMapper _mapper;
         private readonly IProductRepository _productRepository;
+        private readonly NorthwindContext _northwindContext;
+        private readonly IProductService _productService;
 
-        public TestController(IMapper mapper, IProductRepository productRepository)
+        public TestController(
+            IMapper mapper, 
+            IProductRepository productRepository,
+            NorthwindContext northwindContext,
+            IProductService productService)
         {
             _mapper = mapper;
             _productRepository = productRepository;
+            _northwindContext = northwindContext;
+            _productService = productService;
         }
 
         [HttpGet]
         [Route("/TESTAPI/Product/{id:int}")]
-        public ProductResultVM Get(int id)
+        public ProductVM Get(int id)
         {
-            ///TODO: test generic automapper
-            Product p = new Product()
-            {
-                ProductId = id,
-                ProductName = "Test"
-            };
-            var testsource = new MapperTest<Product>()
-            {
-                Id = id,
-                Data = p
-            };
-            var target = _mapper.Map<MapperTest<ProductResultVM>>(testsource);
-            Console.WriteLine(target.GetType());
-            ///
             var product = _productRepository.GetByID(id);
-            return _mapper.Map<ProductResultVM>(product);
+            return _mapper.Map<ProductVM>(product);
         }
 
         [HttpGet]
         [Route("/TESTAPI/Product/Search")]
-        public PagedResultsVM<Product> GetPaging([FromQuery] ProductPagingVM parameters)
+        public PPagedList<ProductVM> GetPaging([FromQuery] ProductPageQueryVM parameters)
         {
-            return _productRepository.GetPaging(parameters);
+            return _productService.GetPaging(parameters);
         }
     }
 }

@@ -12,9 +12,9 @@
 //    public class BaseController : ControllerBase
 //    {
 
-//        protected ProductServiceResponse<T> Run<T>(Func<T> resolve) where T : class
+//        protected ProductAPIResultVM<T> Run<T>(Func<T> resolve) where T : class
 //        {
-//            ProductServiceResponse<T> response = new ProductServiceResponse<T>();
+//            ProductAPIResultVM<T> response = new ProductAPIResultVM<T>();
 //            try
 //            {
 //                response.Result = resolve();

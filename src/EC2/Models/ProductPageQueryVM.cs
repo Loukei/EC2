@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations;
 namespace EC2.Models
 {
     /// <summary>
-    /// A model for ProductController GetAll parameter
+    /// An view model for <see cref="Controllers.ProductController.GetAll(ProductPageQueryVM)"/> parameter
     /// </summary>
-    public class ProductPagingVM
+    public class ProductPageQueryVM
     {
         [StringLength(40)]
         [DefaultValue(null)]

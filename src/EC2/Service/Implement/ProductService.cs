@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using EC2.Models;
+﻿using EC2.Models;
 using EC2.Repository;
 using EC2.Models.DTOs.Northwind;
 using AutoMapper;
+using X.PagedList;
 
 namespace EC2.Service.Implement
 {
@@ -30,7 +30,7 @@ namespace EC2.Service.Implement
             _mapper = mapper;
         }
 
-        public ProductResultVM Create(ProductRequestVM product)
+        public ProductVM Create(ProductUpdateVM product)
         {
             try
             {
@@ -42,7 +42,7 @@ namespace EC2.Service.Implement
                 var result = _productRepo.Create(product);
                 if (result == null)
                     throw new Exception("Create product has failed");
-                return _mapper.Map<ProductResultVM>(result);
+                return _mapper.Map<ProductVM>(result);
             } 
             catch(Exception tex)
             {
@@ -51,7 +51,7 @@ namespace EC2.Service.Implement
             }
         }
 
-        public PagedResultsVM<ProductResultVM> GetPaging(ProductPagingVM request)
+        public PPagedList<ProductVM> GetPaging(ProductPageQueryVM request)
         {
             try
             {
@@ -72,16 +72,16 @@ namespace EC2.Service.Implement
                     throw new Exception($"SupplierID {request.supplierID} or CategoryID {request.categoryID} not exist!");
                 }
 
-                var pagingresults = _productRepo.GetPaging(request);
-                if (pagingresults == null)
+                IPagedList<Product> productRepoPagedResults = _productRepo.GetPaging(request);
+                if (productRepoPagedResults == null)
                 {
                     throw new Exception("No Products found.");
                 }
 
-                /// TODO: use automapper turn 
-                /// PagedResultsVM<Product> to PagedResultsVM<ProductResultVM>
-                return _mapper.Map<PagedResultsVM<Product>, PagedResultsVM<ProductResultVM>>(pagingresults);
-                //List<ProductRequestVM> products = _mapper.Map<List<ProductRequestVM>>(pagingresults.Records);
+                /// IPagedList<Product> to 
+                var metadata = productRepoPagedResults.GetMetaData();
+                var items = _mapper.Map<List<ProductVM>>(productRepoPagedResults.ToList());
+                return new PPagedList<ProductVM>(metadata, items);
             }
             catch (Exception tex)
             {
@@ -90,14 +90,14 @@ namespace EC2.Service.Implement
             }
         }
 
-        public ProductResultVM Get(int productId)
+        public ProductVM Get(int productId)
         {
             try
             {
                 var product = _productRepo.GetByID(productId);
                 if (product == null)
                     throw new Exception($"Product {productId} does not exist.");
-                return _mapper.Map<Product, ProductResultVM>(product);
+                return _mapper.Map<Product, ProductVM>(product);
             }
             catch (Exception tex)
             {
@@ -107,7 +107,7 @@ namespace EC2.Service.Implement
             }
         }
 
-        public ProductResultVM Update(int productId, ProductRequestVM product)
+        public ProductVM Update(int productId, ProductUpdateVM product)
         {
             try
             {
@@ -119,7 +119,7 @@ namespace EC2.Service.Implement
                 var newProduct = _productRepo.Update(productId, product);
                 if (newProduct == null)
                     throw new Exception($"Can't update Product {productId}");
-                return _mapper.Map<ProductResultVM>(newProduct);
+                return _mapper.Map<ProductVM>(newProduct);
             }
             catch (Exception tex)
             {
