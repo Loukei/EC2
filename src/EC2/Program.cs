@@ -8,8 +8,6 @@ using Microsoft.EntityFrameworkCore;
 using Serilog;
 
 using EC2.Mapper;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.AspNetCore.Hosting;
 using EC2.Repository.Implement;
 using EC2.Repository;
 
