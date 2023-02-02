@@ -1,6 +1,5 @@
 using System.Text.Json.Serialization;
 using EC2.Context;
-using EC2.Repository;
 using EC2.Service;
 using EC2.Service.Implement;
 
@@ -11,6 +10,8 @@ using Serilog;
 using EC2.Mapper;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
+using EC2.Repository.Implement;
+using EC2.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 

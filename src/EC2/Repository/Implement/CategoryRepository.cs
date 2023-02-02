@@ -1,14 +1,9 @@
 ﻿using EC2.Context;
 using EC2.Models.DTOs.Northwind;
 
-namespace EC2.Repository
+namespace EC2.Repository.Implement
 {
-    public interface ICategoryRepository
-    {
-        Category GetCategoryByID(int categoryId);
-    }
-
-    public class CategoryRepository: ICategoryRepository
+    public class CategoryRepository : ICategoryRepository
     {
         private readonly NorthwindContext _northwindContext;
 
@@ -28,7 +23,7 @@ namespace EC2.Repository
             {
                 return _northwindContext.Categories.Single(c => c.CategoryId == categoryId);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return null;
             }

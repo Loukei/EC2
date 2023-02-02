@@ -1,6 +1,7 @@
 ﻿using EC2.Models;
-using EC2.Repository;
 using EC2.Models.DTOs.Northwind;
+using EC2.Repository.Implement;
+using EC2.Repository;
 using AutoMapper;
 using X.PagedList;
 

@@ -2,9 +2,10 @@
 using EC2.Context; //NorthwindContext
 using EC2.Models;
 using EC2.Models.DTOs.Northwind;
-using EC2.Repository;
 using EC2.Service;
 using AutoMapper;
+using EC2.Repository.Implement;
+using EC2.Repository;
 
 namespace EC2.Controllers
 {

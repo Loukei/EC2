@@ -3,7 +3,7 @@
 namespace EC2.Models
 {
     /// <summary>
-    /// An DTO class for <see cref="Repository.ProductRepository"/> as return value.
+    /// An DTO class for <see cref="Repository.Implement.ProductRepository"/> as return value.
     /// This DTO blocks some Property from <see cref="Product"/>
     /// Relate Model:
     /// <seealso cref="Supplier"/>

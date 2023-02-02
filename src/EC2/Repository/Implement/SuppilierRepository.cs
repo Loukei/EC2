@@ -1,14 +1,9 @@
 ﻿using EC2.Context;
 using EC2.Models.DTOs.Northwind;
 
-namespace EC2.Repository
+namespace EC2.Repository.Implement
 {
-    public interface ISuppilierRepository
-    {
-        Supplier GetSuppilierByID(int supplierId);
-    }
-
-    public class SuppilierRepository: ISuppilierRepository
+    public class SuppilierRepository : ISuppilierRepository
     {
         private readonly NorthwindContext _northwindContext;
 
