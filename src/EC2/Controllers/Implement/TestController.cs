@@ -7,7 +7,7 @@ using AutoMapper;
 using EC2.Repository.Implement;
 using EC2.Repository;
 
-namespace EC2.Controllers
+namespace EC2.Controllers.Implement
 {
     /// <summary>
     /// A test controller for using EFCore
@@ -22,7 +22,7 @@ namespace EC2.Controllers
         private readonly IProductService _productService;
 
         public TestController(
-            IMapper mapper, 
+            IMapper mapper,
             IProductRepository productRepository,
             NorthwindContext northwindContext,
             IProductService productService)

@@ -2,7 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Xml.Linq;
 using EC2.Models;
-namespace EC2.Controllers
+
+namespace EC2.Controllers.Implement
 {
     /// <summary>
     /// A Simple Controller to check server healthy

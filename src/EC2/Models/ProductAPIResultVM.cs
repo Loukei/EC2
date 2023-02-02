@@ -1,7 +1,7 @@
 ﻿namespace EC2.Models
 {
     /// <summary>
-    /// 用來預備讓<see cref="Controllers.ProductController"/>回傳的資料型態
+    /// 用來預備讓<see cref="Controllers.Implement.ProductController"/>回傳的資料型態
     /// </summary>
     public class ProductAPIResultVM
     {

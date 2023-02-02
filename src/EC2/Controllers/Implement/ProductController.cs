@@ -3,7 +3,7 @@ using EC2.Models;
 using EC2.Service;
 using EC2.Models.DTOs.Northwind;
 
-namespace EC2.Controllers
+namespace EC2.Controllers.Implement
 {
     /// <summary>
     /// A service to maintain Product
@@ -13,7 +13,7 @@ namespace EC2.Controllers
     public class ProductController : ControllerBase
     {
         private readonly IProductService _productService;
-        
+
         public ProductController(IProductService productService)
         {
             _productService = productService;
@@ -97,7 +97,7 @@ namespace EC2.Controllers
 
         [HttpPut]
         [Route("{Id:int:min(1)}")]
-        public ProductAPIResultVM Update(int Id,ProductUpdateVM parameters)
+        public ProductAPIResultVM Update(int Id, ProductUpdateVM parameters)
         {
             var response = new ProductAPIResultVM
             {

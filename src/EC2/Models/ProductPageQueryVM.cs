@@ -1,10 +1,11 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using EC2.Controllers.Implement;
 
 namespace EC2.Models
 {
     /// <summary>
-    /// An view model for <see cref="Controllers.ProductController.GetAll(ProductPageQueryVM)"/> parameter
+    /// An view model for <see cref="ProductController.GetAll(ProductPageQueryVM)"/> parameter
     /// </summary>
     public class ProductPageQueryVM
     {
