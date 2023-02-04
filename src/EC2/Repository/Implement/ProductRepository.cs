@@ -92,16 +92,7 @@ namespace EC2.Repository.Implement
 
             if (product != null)
             {
-                /// TODO: make this part simplify
-                product.ProductName = parameters.ProductName;
-                product.SupplierId = parameters.SupplierID;
-                product.CategoryId = parameters.CategoryID;
-                product.QuantityPerUnit = parameters.QuantityPerUnit;
-                product.UnitPrice = parameters.UnitPrice;
-                product.UnitsInStock = (short?)parameters.UnitsInStock;
-                product.UnitsOnOrder = (short?)parameters.UnitsOnOrder;
-                product.ReorderLevel = (short?)parameters.ReorderLevel;
-                product.Discontinued = parameters.Discontinued != 0;
+                _mapper.Map<ProductUpdateVM, Product>(parameters, product);
                 product.UpdatedDate = DateTime.Now;
                 /// FIX: default update fk
                 product.UpdatedBy = 1;
