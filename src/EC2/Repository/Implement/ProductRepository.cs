@@ -2,8 +2,8 @@
 using AutoMapper;
 using X.PagedList;
 using EC2.Models;
-using NorthWindEFLibrary.Context;
-using NorthWindEFLibrary.DTOs;
+using NorthWindLibrary.Context;
+using NorthWindLibrary.DTOs;
 
 namespace EC2.Repository.Implement
 {

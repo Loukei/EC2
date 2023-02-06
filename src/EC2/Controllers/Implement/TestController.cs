@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using EC2.Models;
-using NorthWindEFLibrary.Context;
-using NorthWindEFLibrary.DTOs;
+using NorthWindLibrary.Context;
+using NorthWindLibrary.DTOs;
 using EC2.Service;
 using AutoMapper;
 using EC2.Repository.Implement;

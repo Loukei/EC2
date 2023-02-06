@@ -1,5 +1,5 @@
 using System.Text.Json.Serialization;
-using NorthWindEFLibrary.Context;
+using NorthWindLibrary.Context;
 using EC2.Service;
 using EC2.Service.Implement;
 

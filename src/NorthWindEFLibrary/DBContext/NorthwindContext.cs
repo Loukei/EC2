@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using NorthWindEFLibrary.DTOs;
+using NorthWindLibrary.DTOs;
 
-namespace NorthWindEFLibrary.Context;
+namespace NorthWindLibrary.Context;
 
 /// <summary>
 /// An DBContext generate by EFCore tool

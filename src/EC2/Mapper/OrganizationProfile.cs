@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using NorthWindEFLibrary.DTOs;
+using NorthWindLibrary.DTOs;
 using EC2.Models;
 
 namespace EC2.Mapper

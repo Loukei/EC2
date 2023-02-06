@@ -1,4 +1,4 @@
-﻿using NorthWindEFLibrary.DTOs;
+﻿using NorthWindLibrary.DTOs;
 
 namespace EC2.Models
 {

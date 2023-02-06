@@ -1,5 +1,5 @@
 ﻿using EC2.Models;
-using NorthWindEFLibrary.DTOs;
+using NorthWindLibrary.DTOs;
 using EC2.Repository.Implement;
 using EC2.Repository;
 using AutoMapper;

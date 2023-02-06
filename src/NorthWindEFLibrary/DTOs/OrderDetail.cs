@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace NorthWindEFLibrary.DTOs;
+namespace NorthWindLibrary.DTOs;
 
 public partial class OrderDetail
 {

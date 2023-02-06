@@ -1,5 +1,5 @@
-﻿using NorthWindEFLibrary.Context;
-using NorthWindEFLibrary.DTOs;
+﻿using NorthWindLibrary.Context;
+using NorthWindLibrary.DTOs;
 
 namespace EC2.Repository.Implement
 {
