@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace EC2.Models.DTOs.Northwind;
+namespace NorthWindEFLibrary.DTOs;
 
-public partial class Supplier
+public partial class Customer
 {
-    public int SupplierId { get; set; }
+    public string CustomerId { get; set; } = null!;
 
     public string CompanyName { get; set; } = null!;
 
@@ -27,7 +27,7 @@ public partial class Supplier
 
     public string? Fax { get; set; }
 
-    public string? HomePage { get; set; }
+    public virtual ICollection<Order> Orders { get; } = new List<Order>();
 
-    public virtual ICollection<Product> Products { get; } = new List<Product>();
+    public virtual ICollection<CustomerDemographic> CustomerTypes { get; } = new List<CustomerDemographic>();
 }

@@ -20,4 +20,12 @@
     <PackageReference Include="X.PagedList.Mvc.Core" Version="8.4.3" />
    </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Context\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NorthWindEFLibrary\NorthWindEFLibrary.csproj" />
+  </ItemGroup>
+
 </Project>

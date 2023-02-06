@@ -1,4 +1,4 @@
-﻿using EC2.Models.DTOs.Northwind;
+﻿using NorthWindEFLibrary.DTOs;
 
 namespace EC2.Repository
 {

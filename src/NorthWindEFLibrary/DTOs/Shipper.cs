@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace EC2.Models.DTOs.Northwind;
+namespace NorthWindEFLibrary.DTOs;
 
 public partial class Shipper
 {

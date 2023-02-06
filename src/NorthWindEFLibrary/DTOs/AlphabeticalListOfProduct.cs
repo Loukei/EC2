@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace EC2.Models.DTOs.Northwind;
+namespace NorthWindEFLibrary.DTOs;
 
-public partial class Product
+public partial class AlphabeticalListOfProduct
 {
     public int ProductId { get; set; }
 
@@ -25,19 +25,5 @@ public partial class Product
 
     public bool Discontinued { get; set; }
 
-    public bool? Status { get; set; }
-
-    public DateTime CreatedDate { get; set; }
-
-    public DateTime? UpdatedDate { get; set; }
-
-    public int CreatedBy { get; set; }
-
-    public int? UpdatedBy { get; set; }
-
-    public virtual Category? Category { get; set; }
-
-    public virtual ICollection<OrderDetail> OrderDetails { get; } = new List<OrderDetail>();
-
-    public virtual Supplier? Supplier { get; set; }
+    public string CategoryName { get; set; } = null!;
 }

@@ -1,4 +1,4 @@
-﻿using EC2.Models.DTOs.Northwind;
+﻿using NorthWindEFLibrary.DTOs;
 using EC2.Models;
 using X.PagedList;
 

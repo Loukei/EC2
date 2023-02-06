@@ -1,5 +1,5 @@
 ﻿using EC2.Models;
-using EC2.Models.DTOs.Northwind;
+using NorthWindEFLibrary.DTOs;
 
 namespace EC2.Service
 {

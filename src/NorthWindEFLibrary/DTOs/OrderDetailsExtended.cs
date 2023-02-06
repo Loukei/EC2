@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace EC2.Models.DTOs.Northwind;
+namespace NorthWindEFLibrary.DTOs;
 
-public partial class OrderDetail
+public partial class OrderDetailsExtended
 {
     public int OrderId { get; set; }
 
     public int ProductId { get; set; }
+
+    public string ProductName { get; set; } = null!;
 
     public decimal UnitPrice { get; set; }
 
@@ -15,7 +17,5 @@ public partial class OrderDetail
 
     public float Discount { get; set; }
 
-    public virtual Order Order { get; set; } = null!;
-
-    public virtual Product Product { get; set; } = null!;
+    public decimal? ExtendedPrice { get; set; }
 }

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using EC2.Models;
 using EC2.Service;
-using EC2.Models.DTOs.Northwind;
+using NorthWindEFLibrary.DTOs;
 
 namespace EC2.Controllers.Implement
 {
