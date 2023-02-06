@@ -79,7 +79,7 @@ namespace EC2.Service.Implement
                     throw new Exception("No Products found.");
                 }
 
-                /// IPagedList<Product> to 
+                /// IPagedList<Product> to PPagedList<ProductVM>
                 var metadata = productRepoPagedResults.GetMetaData();
                 var items = _mapper.Map<List<ProductVM>>(productRepoPagedResults.ToList());
                 return new PPagedList<ProductVM>(metadata, items);

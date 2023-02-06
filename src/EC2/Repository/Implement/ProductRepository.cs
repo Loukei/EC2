@@ -18,6 +18,25 @@ namespace EC2.Repository.Implement
         }
 
         /// <summary>
+        /// Turn <paramref name="parameters"/> to query Statement.
+        /// </summary>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
+        private IOrderedQueryable<Product> GetQuaryStatement(ProductPageQueryVM parameters)
+        {
+            /// TODO: query by supplierName, categoryName
+            ///
+            var records = from p in _northwindContext.Products
+                          where (p.Status == true)
+                            && (parameters.name == null || p.ProductName == parameters.name)
+                            && (parameters.supplierID == null || p.SupplierId == parameters.supplierID)
+                            && (parameters.categoryID == null || p.CategoryId == parameters.categoryID)
+                          orderby p.ProductId ascending
+                          select p;
+            return records;
+        }
+
+        /// <summary>
         /// Create Single Delete, return object as response
         /// </summary>
         /// <param name="parameters"></param>
@@ -53,26 +72,20 @@ namespace EC2.Repository.Implement
 
         public IPagedList<Product> GetPaging(ProductPageQueryVM parameters)
         {
-            /// TODO: query by supplierName, categoryName
-            var records = from p in _northwindContext.Products
-                          where p.Status == true
-                            && (parameters.name == null || p.ProductName == parameters.name)
-                            && (parameters.supplierID == null || p.SupplierId == parameters.supplierID)
-                            && (parameters.categoryID == null || p.CategoryId == parameters.categoryID)
-                          orderby p.ProductId
-                          select p;
+            var records = GetQuaryStatement(parameters);
             return records.ToPagedList(parameters.pageIndex, parameters.pageSize);
         }
 
         public int CountByQuery(ProductPageQueryVM parameters)
         {
-            var queryStatement = _northwindContext.Products
-                .Include(c => c.Category)
-                .Include(c => c.Supplier)
-                .Where(p => p.Status == true
-                    && (parameters.name == null || p.ProductName == parameters.name)
-                    && (parameters.supplierID == null || p.SupplierId == parameters.supplierID)
-                    && (parameters.categoryID == null || p.CategoryId == parameters.categoryID));
+            //var queryStatement = _northwindContext.Products
+            //    .Include(c => c.Category)
+            //    .Include(c => c.Supplier)
+            //    .Where(p => p.Status == true
+            //        && (parameters.name == null || p.ProductName == parameters.name)
+            //        && (parameters.supplierID == null || p.SupplierId == parameters.supplierID)
+            //        && (parameters.categoryID == null || p.CategoryId == parameters.categoryID));
+            var queryStatement = GetQuaryStatement(parameters);
             return queryStatement.Count();
         }
 
@@ -116,7 +129,8 @@ namespace EC2.Repository.Implement
         {
             ///Mark Product.[Status] to false rather than delete row
             var product = _northwindContext.Products
-                .SingleOrDefault(p => p.ProductId == productId && p.Status == true);
+                .SingleOrDefault(p => p.ProductId == productId 
+                && p.Status == true);
             if (product == null)
             {
                 return false;

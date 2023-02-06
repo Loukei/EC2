@@ -5,7 +5,7 @@ using EC2.Models;
 namespace EC2.Mapper
 {
     /// <summary>
-    /// An class for automapper
+    /// An class for automapper profile
     /// </summary>
     public class OrganizationProfile: Profile
     {

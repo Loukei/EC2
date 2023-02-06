@@ -39,6 +39,7 @@
   - Category
   - Suppilier
 - 測試功能
+- 將Product API模組化
 - API參數不能直接帶DB的Primary key
 - GetAll 添加suplilierName參數
 - Async非同步
