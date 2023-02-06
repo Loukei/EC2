@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace EC2.Models.DTOs.Northwind;
+namespace NorthWindLibrary.DTOs;
 
 public partial class Customer
 {

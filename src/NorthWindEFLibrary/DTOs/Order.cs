@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace EC2.Models.DTOs.Northwind;
+namespace NorthWindLibrary.DTOs;
 
-public partial class OrdersQry
+public partial class Order
 {
     public int OrderId { get; set; }
 
@@ -33,15 +33,11 @@ public partial class OrdersQry
 
     public string? ShipCountry { get; set; }
 
-    public string CompanyName { get; set; } = null!;
+    public virtual Customer? Customer { get; set; }
 
-    public string? Address { get; set; }
+    public virtual Employee? Employee { get; set; }
 
-    public string? City { get; set; }
+    public virtual ICollection<OrderDetail> OrderDetails { get; } = new List<OrderDetail>();
 
-    public string? Region { get; set; }
-
-    public string? PostalCode { get; set; }
-
-    public string? Country { get; set; }
+    public virtual Shipper? ShipViaNavigation { get; set; }
 }

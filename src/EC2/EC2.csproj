@@ -25,7 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\NorthWindEFLibrary\NorthWindLibrary.csproj" />
+    <ProjectReference Include="..\NorthWindEFLibrary\NorthWindEFLibrary.csproj" />
   </ItemGroup>
 
 </Project>

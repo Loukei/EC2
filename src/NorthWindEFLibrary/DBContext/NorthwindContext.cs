@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using EC2.Models.DTOs.Northwind;
+using NorthWindLibrary.DTOs;
 
-namespace EC2.Context;
+namespace NorthWindLibrary.Context;
 
 /// <summary>
 /// An DBContext generate by EFCore tool

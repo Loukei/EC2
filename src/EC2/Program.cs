@@ -1,5 +1,5 @@
 using System.Text.Json.Serialization;
-using EC2.Context;
+using NorthWindLibrary.Context;
 using EC2.Service;
 using EC2.Service.Implement;
 
@@ -20,8 +20,7 @@ Log.Logger = new LoggerConfiguration()
 
 builder.Host.UseSerilog();
 
-try
-    
+try    
 {
     Log.Information("Start Logging...");
     /// Put original program.cs code here

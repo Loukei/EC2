@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace EC2.Models.DTOs.Northwind;
+namespace NorthWindLibrary.DTOs;
 
-public partial class SummaryOfSalesByQuarter
+public partial class OrderSubtotal
 {
-    public DateTime? ShippedDate { get; set; }
-
     public int OrderId { get; set; }
 
     public decimal? Subtotal { get; set; }
