@@ -210,6 +210,7 @@ AutoMapper這項套件可以幫我們節省大量的工作。
 ### Repository pattern
 
 - [How to use Dapper with ASP.NET Core and Repository Pattern](https://blog.christian-schou.dk/how-to-use-dapper-with-asp-net-core/)
+- [Generic Repository Pattern In ASP.NET Core](https://www.c-sharpcorner.com/article/generic-repository-pattern-in-asp-net-core/#:~:text=The%20generic%20repository%20pattern%20implements,Core%20with%20Entity%20Framework%20Core.)
 
 ## API design guide & examples
 
