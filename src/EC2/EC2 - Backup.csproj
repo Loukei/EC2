@@ -7,13 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Context\**" />
-    <Content Remove="Context\**" />
-    <EmbeddedResource Remove="Context\**" />
-    <None Remove="Context\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="12.0.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.2">
@@ -26,9 +19,5 @@
     <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
     <PackageReference Include="X.PagedList.Mvc.Core" Version="8.4.3" />
    </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\NorthWindLibrary\NorthWindLibrary.csproj" />
-  </ItemGroup>
 
 </Project>
